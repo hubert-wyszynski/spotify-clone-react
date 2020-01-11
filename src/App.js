@@ -24,7 +24,7 @@ const App = () => (
 )
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600,700&display=swap');
 
   @import '../node_modules/font-awesome/scss/font-awesome.scss';
 
