@@ -3,10 +3,12 @@ import React from 'react'
 import styled from 'styled-components'
 
 import CurrentSong from './CurrentSong'
+import Player from './Player'
 
 const BottomBar = () => (
   <BottomBarWrapper>
     <CurrentSong />
+    <Player />
   </BottomBarWrapper>
 )
 

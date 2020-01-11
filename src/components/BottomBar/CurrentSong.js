@@ -37,7 +37,7 @@ const Info = styled.div`
 `
 
 const Title = styled.p`
-  color: white;
+  color: #efefef;
   font-size: 1.3rem;
   font-weight: 300;
   margin: 0 0 4px;
