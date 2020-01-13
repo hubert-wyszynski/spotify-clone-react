@@ -1,27 +1,51 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-import styled, { createGlobalStyle } from 'styled-components'
+import PropTypes from 'prop-types'
 
-import TopBar from 'components/TopBar/TopBar'
-import BottomBar from 'components/BottomBar/BottomBar'
-import SideBar from 'components/SideBar/SideBar'
-import MainContent from 'components/MainContent/MainContent'
+import { createGlobalStyle } from 'styled-components'
 
-const App = () => (
-  <div>
-    <GlobalStyle />
-    <Desktop>
-      <AppWindow>
-        <TopBar />
-        <ContentWrapper>
-          <SideBar />
-          <MainContent />
-        </ContentWrapper>
-        <BottomBar />
-      </AppWindow>
-    </Desktop>
-  </div>
-)
+import Login from 'components/Login/Login'
+import AppWrapper from 'components/AppWrapper/AppWrapper'
+
+import { setToken } from 'actions/token'
+
+const hash = window.location.hash
+  .substring(1)
+  .split('&')
+  .reduce(function (initial, item) {
+    if (item) {
+      var parts = item.split('=')
+      initial[parts[0]] = decodeURIComponent(parts[1])
+    }
+    return initial
+  }, {})
+window.location.hash = ''
+
+class App extends React.Component {
+  componentDidMount () {
+    const _token = hash.access_token
+    if (_token) {
+      this.props.setToken(_token)
+    }
+  }
+
+  render () {
+    return (
+      <div>
+        <GlobalStyle />
+        {!this.props.token && (
+          <Login />
+        )}
+        {
+          this.props.token && (
+            <AppWrapper />
+          )
+        }
+      </div>
+    )
+  }
+}
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600,700&display=swap');
@@ -48,32 +72,17 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const Desktop = styled.div`
-  align-items: center;
-  background-color: #f1f1f1;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  padding: 0 20px;
-`
+const mapStateToProps = ({ token }) => {
+  return token
+}
 
-const ContentWrapper = styled.div`
-  background-color: pink;
-  display: flex;
-  height: calc(100% - 72px);
-`
+const mapDispatchToProps = {
+  setToken
+}
 
-const AppWindow = styled.div`
-  background-color: white;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  max-width: 1000px;
-  max-height: 700px;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-`
+App.propTypes = {
+  setToken: PropTypes.func,
+  token: PropTypes.string
+}
 
-export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App)
