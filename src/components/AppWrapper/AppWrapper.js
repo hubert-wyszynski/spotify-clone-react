@@ -32,7 +32,6 @@ const Desktop = styled.div`
 `
 
 const ContentWrapper = styled.div`
-  background-color: pink;
   display: flex;
   height: calc(100% - 72px);
 `
