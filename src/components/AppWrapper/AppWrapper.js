@@ -42,7 +42,7 @@ const AppWindow = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-width: 1000px;
+  max-width: 940px;
   max-height: 700px;
   overflow: hidden;
   position: relative;

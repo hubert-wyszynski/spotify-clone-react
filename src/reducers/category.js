@@ -1,16 +1,16 @@
 import { FETCH_CATEGORY, FETCH_CATEGORY_SUCCESS, FETCH_CATEGORY_FAILURE } from 'actions/category'
 
 const initialState = {
-  category: null,
+  data: null,
   fetchingCategoryPending: false
 }
 
-export const category = (state = initialState, action) => {
+const category = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CATEGORY_SUCCESS:
       return {
         ...state,
-        category: action.payload,
+        data: action.payload,
         fetchingCategoryPending: false
       }
     case FETCH_CATEGORY_FAILURE:

@@ -22,10 +22,11 @@ const LoginWrapper = styled.div`
 `
 
 const Button = styled.a`
-  background-color: #1db954
+  background-color: #1db954;
   border-radius: 24px;
   color: #fff;
   padding: 12px 24px;
   text-decoration: none;
 `
+
 export default Login

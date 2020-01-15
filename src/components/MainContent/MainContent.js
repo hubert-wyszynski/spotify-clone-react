@@ -2,71 +2,72 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { fetchCategory } from 'actions/category'
-
 import styled from 'styled-components'
 
-const MainContent = ({ fetchCategory, categories }) => (
+import GridItem from 'components/GridItem/GridItem'
+
+const MainContent = ({
+  content,
+  currentContent
+}) => (
   <MainContentWrapper>
     {
-      (categories && categories.items) && categories.items.map(cat => (
-        <CategoryThumbnail
-          key={cat.id}
-        >
-          <CategoryImage
-            src={cat.icons[0].url}
-          />
-          <CategoryTitle>
-            {cat.name}
-          </CategoryTitle>
-        </CategoryThumbnail>
-      ))
+      currentContent &&
+        <Header>
+          {currentContent.header}
+        </Header>
+    }
+    {
+      content && content.items &&
+        <Grid>
+          {
+            content.items.map(item => (
+              <GridItem
+                item={item}
+                key={item.id}
+              />
+            ))
+          }
+        </Grid>
     }
   </MainContentWrapper>
 )
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px 26px;
+  height: calc(100% - 64px);
+  overflow: scroll;
+  padding: 20px 0; 
+`
+
+const Header = styled.h2`
+  color: white;
+  margin: 0 0 20px;
+  font-size: 3rem;
+`
+
 const MainContentWrapper = styled.div`
   background: rgb(87,87,87);
   background: linear-gradient(180deg, rgba(87,87,87,1) 0%, rgba(66,66,66,1) 35%, rgba(36,36,36,1) 100%);
-  cursor: pointer;
-  display: flex;
-  flex-wrap: wrap;
   height: 100%;
-  overflow: scroll;
-  padding: 60px 18px 0;
+  padding: 55px 18px 0;
   width: calc(100% - 200px);
 `
 
-const CategoryImage = styled.img`
-  width: 200px;
-  height: 200px;
-`
+const mapStateToProps = (state) => {
+  const { currentContent } = state
 
-const CategoryThumbnail = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-`
-
-const CategoryTitle = styled.h3`
-  color: white;
-`
-
-const mapStateToProps = ({ token, categories }) => {
   return {
-    token: token.token,
-    categories: categories.categories
+    currentContent,
+    content: state[currentContent.data]
   }
 }
 
-const mapDispatchToProps = {
-  fetchCategory
-}
-
 MainContent.propTypes = {
-  categories: PropTypes.object,
-  fetchCategory: PropTypes.func
-  // token: PropTypes.string
+  content: PropTypes.object,
+  currentContent: PropTypes.object
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContent)
+export default connect(mapStateToProps)(MainContent)

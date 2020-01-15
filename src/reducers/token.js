@@ -1,6 +1,6 @@
 import { SET_TOKEN } from 'actions/token'
 
-export const token = (state = {}, action) => {
+const token = (state = {}, action) => {
   switch (action.type) {
     case SET_TOKEN:
       return {
