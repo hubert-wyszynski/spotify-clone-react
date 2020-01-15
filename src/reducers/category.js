@@ -1,24 +1,28 @@
-import { FETCH_CATEGORY, FETCH_CATEGORY_SUCCESS, FETCH_CATEGORY_FAILURE } from 'actions/category'
+import {
+  FETCH_CATEGORY_PLAYLISTS,
+  FETCH_CATEGORY_PLAYLISTS_SUCCESS,
+  FETCH_CATEGORY_PLAYLISTS_FAILURE
+} from 'actions/category'
 
 const initialState = {
-  data: null,
+  items: null,
   fetchingCategoryPending: false
 }
 
 const category = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CATEGORY_SUCCESS:
+    case FETCH_CATEGORY_PLAYLISTS_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        items: action.payload.data.playlists.items,
         fetchingCategoryPending: false
       }
-    case FETCH_CATEGORY_FAILURE:
+    case FETCH_CATEGORY_PLAYLISTS_FAILURE:
       return {
         ...state,
         fetchingCategoryPending: false
       }
-    case FETCH_CATEGORY:
+    case FETCH_CATEGORY_PLAYLISTS:
       return {
         ...state,
         fetchingCategoryPending: true

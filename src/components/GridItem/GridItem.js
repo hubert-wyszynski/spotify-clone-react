@@ -15,7 +15,7 @@ const GridItem = ({
   const getImage = (item) => {
     const hasImage = Object.prototype.hasOwnProperty.call(item, 'images')
     if (hasImage) {
-      return item.images[1].url
+      return item.images[0].url
     } else return item.icons[0].url
   }
 
