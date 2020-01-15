@@ -35,8 +35,8 @@ const MainContent = ({
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 30px 26px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px 16px;
   height: calc(100% - 64px);
   overflow: scroll;
   padding: 20px 0; 
