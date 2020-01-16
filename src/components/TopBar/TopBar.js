@@ -2,6 +2,7 @@ import React from 'react'
 
 import Dots from './Dots'
 import Search from './Search'
+import User from './User'
 
 import styled from 'styled-components'
 
@@ -9,6 +10,7 @@ const TopBar = () => (
   <TopBarWrapper>
     <Dots />
     <Search />
+    <User />
   </TopBarWrapper>
 )
 

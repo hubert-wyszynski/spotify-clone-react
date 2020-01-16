@@ -8,6 +8,7 @@ import player from 'reducers/player'
 import playlist from 'reducers/playlist'
 import releases from 'reducers/releases'
 import token from 'reducers/token'
+import user from 'reducers/user'
 
 export default combineReducers({
   album,
@@ -17,5 +18,6 @@ export default combineReducers({
   player,
   playlist,
   releases,
-  token
+  token,
+  user
 })
