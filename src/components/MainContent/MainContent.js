@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 
 import styled from 'styled-components'
 
-import GridItem from 'components/GridItem/GridItem'
-import ListItem from 'components/ListItem/ListItem'
+import Grid from 'components/Grid/Grid'
+import List from 'components/List/List'
 
 const MainContent = ({
   content,
@@ -21,50 +21,19 @@ const MainContent = ({
     {
       content && content.items && (
         currentContent.display === 'grid' ? (
-          <Grid>
-            {
-              content.items.map(item => (
-                <GridItem
-                  item={item}
-                  key={item.id}
-                />
-              ))
-            }
-          </Grid>
+          <Grid items={content.items} />
         ) : (
-          <List>
-            {
-              content.items.map(item => (
-                <ListItem
-                  item={item}
-                  key={item.id}
-                />
-              ))
-            }
-          </List>
+          <List items={content.items} />
         )
       )
     }
   </MainContentWrapper>
 )
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 20px 16px;
-  height: calc(100% - 64px);
-  overflow: scroll;
-  padding: 20px 0; 
-`
-
 const Header = styled.h2`
   color: white;
   margin: 0 0 20px;
   font-size: 3rem;
-`
-
-const List = styled.ul`
-  background-color: pink;
 `
 
 const MainContentWrapper = styled.div`

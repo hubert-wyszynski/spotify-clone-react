@@ -6,7 +6,7 @@ export const FETCH_ALBUM_TRACKS = 'FETCH_ALBUM_TRACKS'
 export const FETCH_ALBUM_TRACKS_FAILURE = 'FETCH_ALBUM_TRACKS_FAILURE'
 export const FETCH_ALBUM_TRACKS_SUCCESS = 'FETCH_ALBUM_TRACKS_SUCCESS'
 
-export const fetchAlbumTracks = (albumId,token) => dispatch => {
+export const fetchAlbumTracks = (albumId, albumName, token) => dispatch => {
   dispatch({ type: FETCH_ALBUM_TRACKS })
 
   return axios
@@ -21,7 +21,7 @@ export const fetchAlbumTracks = (albumId,token) => dispatch => {
         payload: {
           display: 'list',
           data: 'album',
-          header: 'To jest jakiś album'
+          header: `${albumName}`
         }
       })
     })

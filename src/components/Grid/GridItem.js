@@ -28,7 +28,7 @@ const GridItem = ({
         fetchCategoryPlaylists(item.id, item.name, token)
         break
       case 'releases':
-        fetchAlbumTracks(item.id, token)
+        fetchAlbumTracks(item.id, item.name, token)
         break
       default:
         break
@@ -62,16 +62,16 @@ const Wrapper = styled.div`
 
 const Artist = styled.h4`
   color: #989898;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
   margin: 0;
 `
 
 const Title = styled.h3`
   color: #fff;
-  font-size: 1.6rem;
-  font-weight: 500;
-  margin: 12px 0 6px;
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin: 6px 0 4px;
 `
 
 const Image = styled.img`
