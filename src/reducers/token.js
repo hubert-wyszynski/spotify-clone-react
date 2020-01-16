@@ -7,7 +7,6 @@ const token = (state = {}, action) => {
         ...state,
         token: action.token
       }
-
     default:
       return state
   }

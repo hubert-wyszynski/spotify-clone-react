@@ -1,10 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
-const ListItem = ({ item, index }) => (
-  <Item>
+import { playTrack } from 'actions/player'
+
+const ListItem = ({
+  item,
+  index,
+  playTrack
+}) => (
+  <Item
+    onClick={() => playTrack(item)}
+  >
     <Index>
       {index + 1}
     </Index>
@@ -52,9 +60,14 @@ const Index = styled.p`
   width: 50px;
 `
 
-ListItem.propTypes = {
-  index: PropTypes.number,
-  item: PropTypes.object
+const mapDispatchToProps = {
+  playTrack
 }
 
-export default ListItem
+ListItem.propTypes = {
+  index: PropTypes.number,
+  item: PropTypes.object,
+  playTrack: PropTypes.func
+}
+
+export default connect(null, mapDispatchToProps)(ListItem)
