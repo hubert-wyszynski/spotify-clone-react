@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { fetchCategoryPlaylists } from 'actions/category'
 import { fetchAlbumTracks } from 'actions/album'
+import { fetchCategoryPlaylists } from 'actions/category'
+import { fetchPlaylistTracks } from 'actions/playlist'
 
 import { connect } from 'react-redux'
 
@@ -10,8 +11,9 @@ import styled from 'styled-components'
 
 const GridItem = ({
   currentContent,
-  fetchCategoryPlaylists,
   fetchAlbumTracks,
+  fetchCategoryPlaylists,
+  fetchPlaylistTracks,
   item,
   token
 }) => {
@@ -29,6 +31,9 @@ const GridItem = ({
         break
       case 'releases':
         fetchAlbumTracks(item.id, item.name, token)
+        break
+      case 'category':
+        fetchPlaylistTracks(item.id, item.name, token)
         break
       default:
         break
@@ -84,7 +89,8 @@ const Image = styled.img`
 
 const mapDispatchToProps = {
   fetchAlbumTracks,
-  fetchCategoryPlaylists
+  fetchCategoryPlaylists,
+  fetchPlaylistTracks
 }
 
 const mapStateToProps = (state) => {
@@ -100,6 +106,7 @@ GridItem.propTypes = {
   currentContent: PropTypes.object,
   fetchAlbumTracks: PropTypes.func,
   fetchCategoryPlaylists: PropTypes.func,
+  fetchPlaylistTracks: PropTypes.func,
   item: PropTypes.object,
   token: PropTypes.string
 }

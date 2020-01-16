@@ -4,9 +4,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const ListItem = ({ item, index }) => (
-  <Item
-    key={item.id}
-  >
+  <Item>
     <Index>
       {index + 1}
     </Index>
