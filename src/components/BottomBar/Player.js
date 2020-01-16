@@ -3,15 +3,17 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import { clearPlayer } from 'actions/player'
+import { clearPlayer, togglePlayer } from 'actions/player'
 
 const Player = ({
   clearPlayer,
+  isPlaying,
+  togglePlayer,
   track
 }) => {
   const togglePlay = () => {
     const player = document.getElementById('myplayer')
-
+    togglePlayer()
     return player.paused ? player.play() : player.pause()
   }
 
@@ -28,7 +30,7 @@ const Player = ({
         disabled={!track}
       >
         <PlayStopIcon
-          className='fas fa-play'
+          className={isPlaying ? 'fas fa-pause' : 'fas fa-play'}
         />
       </PlayStopButton>
       <audio
@@ -45,7 +47,7 @@ const PlayStopButton = styled.button`
   border: 1px solid #efefef;
   border-radius: 50%;
   cursor: pointer;
-  padding: 7px 7px 8px 10px;
+  padding: 7px 7px 8px 8px;
   background-color: transparent;
   width: 30px;
   height: 30px;
@@ -73,19 +75,23 @@ const PlayerWrapper = styled.div`
 `
 
 const mapStateToProps = (state) => {
-  const { track } = state.player
+  const { isPlaying, track } = state.player
 
   return {
+    isPlaying,
     track
   }
 }
 
 const mapDispatchToProps = {
-  clearPlayer
+  clearPlayer,
+  togglePlayer
 }
 
 Player.propTypes = {
   clearPlayer: PropTypes.func,
+  isPlaying: PropTypes.bool,
+  togglePlayer: PropTypes.func,
   track: PropTypes.object
 }
 
