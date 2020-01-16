@@ -3,26 +3,38 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-const CurrentSong = ({ track }) => (
-  <>
-    {
-      track &&
-        <CurrentSongWrapper>
-          <Cover
-            src={track.album.images[2].url}
-          />
-          <Info>
-            <Title>
-              {track.name}
-            </Title>
-            <Artist>
-              {[...track.artists.map(artist => artist.name)].join(', ')}
-            </Artist>
-          </Info>
-        </CurrentSongWrapper>
+const CurrentSong = ({
+  albumCover,
+  track
+}) => {
+  const getCover = () => {
+    if (track.album) {
+      return track.album.images[2].url
+    } else {
+      return albumCover
     }
-  </>
-)
+  }
+  return (
+    <>
+      {
+        track &&
+          <CurrentSongWrapper>
+            <Cover
+              src={getCover()}
+            />
+            <Info>
+              <Title>
+                {track.name}
+              </Title>
+              <Artist>
+                {[...track.artists.map(artist => artist.name)].join(', ')}
+              </Artist>
+            </Info>
+          </CurrentSongWrapper>
+      }
+    </>
+  )
+}
 
 const Artist = styled.p`
   color: #989898;
@@ -55,14 +67,16 @@ const Title = styled.p`
 `
 
 const mapStateToProps = (state) => {
-  const { player } = state
+  const { album, player } = state
 
   return {
-    track: player.track
+    track: player.track,
+    albumCover: album.albumCover
   }
 }
 
 CurrentSong.propTypes = {
+  albumCover: PropTypes.string,
   track: PropTypes.object
 }
 

@@ -11,7 +11,7 @@ export const fetchAlbumTracks = (albumId, albumName, token) => dispatch => {
 
   return axios
     .get(
-      `https://api.spotify.com/v1/albums/${albumId}/tracks`,
+      `https://api.spotify.com/v1/albums/${albumId}`,
       { params: {}, headers: { 'Authorization': 'Bearer ' + token } }
     )
     .then(payload => {
