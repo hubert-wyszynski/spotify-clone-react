@@ -9,22 +9,32 @@ const ListItem = ({
   item,
   index,
   playTrack
-}) => (
-  <Item
-    onClick={() => playTrack(item)}
-  >
-    <Index>
-      {index + 1}
-    </Index>
-    <Title>
-      {item.name}
-    </Title>
-    {item.artists &&
-      <Artist>
-        {[...item.artists.map(artist => artist.name)].join(', ')}
-      </Artist>}
-  </Item>
-)
+}) => {
+  const artists = (a) => {
+    const artists = [...a.map(artist => artist.name)].join(', ')
+    return artists.length > 35 ? `${artists.slice(0, 35)}...` : artists
+  }
+
+  return (
+    <Item
+      onClick={() => playTrack(item)}
+    >
+      <Index>
+        {index + 1}
+      </Index>
+      <Title>
+        {
+          item.name &&
+          item.name.length > 45 ? `${item.name.slice(0, 45)}...` : item.name
+        }
+      </Title>
+      {item.artists &&
+        <Artist>
+          {artists(item.artists)}
+        </Artist>}
+    </Item>
+  )
+}
 
 const Item = styled.li`
   align-items: center;
