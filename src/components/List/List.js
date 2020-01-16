@@ -17,15 +17,13 @@ const List = ({ items }) => (
         items.map((item, index) => {
           const i = item.track ? item.track : item
 
-          if (item.track) {
-            return (
-              <ListItem
-                item={i}
-                index={index}
-                key={i.id}
-              />
-            )
-          }
+          return (
+            <ListItem
+              item={i}
+              index={index}
+              key={i.id}
+            />
+          )
         })
       }
     </ListWrapper>
