@@ -76,6 +76,10 @@ const Title = styled.h3`
 
 const Image = styled.img`
   width: 100%;
+
+  &:hover {
+    filter: brightness(0.3);
+  }
 `
 
 const mapDispatchToProps = {
