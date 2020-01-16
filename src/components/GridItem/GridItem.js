@@ -2,13 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { fetchCategoryPlaylists } from 'actions/category'
+import { fetchAlbumTracks } from 'actions/album'
 
 import { connect } from 'react-redux'
 
 import styled from 'styled-components'
 
 const GridItem = ({
+  currentContent,
   fetchCategoryPlaylists,
+  fetchAlbumTracks,
   item,
   token
 }) => {
@@ -19,14 +22,23 @@ const GridItem = ({
     } else return item.icons[0].url
   }
 
-  const fetchItem = (id, token) => {
-    fetchCategoryPlaylists(id, token)
+  const fetchItem = (item, token) => {
+    switch (currentContent.data) {
+      case 'categories':
+        fetchCategoryPlaylists(item.id, item.name, token)
+        break
+      case 'releases':
+        fetchAlbumTracks(item.id, token)
+        break
+      default:
+        break
+    }
   }
 
   return (
     <Wrapper
       key={item.id}
-      onClick={() => fetchItem(item.id, token)}
+      onClick={() => fetchItem(item, token)}
     >
       <Image
         src={getImage(item)}
@@ -67,12 +79,22 @@ const Image = styled.img`
 `
 
 const mapDispatchToProps = {
+  fetchAlbumTracks,
   fetchCategoryPlaylists
 }
 
-const mapStateToProps = ({ token }) => token
+const mapStateToProps = (state) => {
+  const { token, currentContent } = state
+
+  return {
+    token: token.token,
+    currentContent
+  }
+}
 
 GridItem.propTypes = {
+  currentContent: PropTypes.object,
+  fetchAlbumTracks: PropTypes.func,
   fetchCategoryPlaylists: PropTypes.func,
   item: PropTypes.object,
   token: PropTypes.string

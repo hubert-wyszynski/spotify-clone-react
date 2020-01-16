@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import GridItem from 'components/GridItem/GridItem'
+import ListItem from 'components/ListItem/ListItem'
 
 const MainContent = ({
   content,
@@ -18,17 +19,31 @@ const MainContent = ({
         </Header>
     }
     {
-      content && content.items &&
-        <Grid>
-          {
-            content.items.map(item => (
-              <GridItem
-                item={item}
-                key={item.id}
-              />
-            ))
-          }
-        </Grid>
+      content && content.items && (
+        currentContent.display === 'grid' ? (
+          <Grid>
+            {
+              content.items.map(item => (
+                <GridItem
+                  item={item}
+                  key={item.id}
+                />
+              ))
+            }
+          </Grid>
+        ) : (
+          <List>
+            {
+              content.items.map(item => (
+                <ListItem
+                  item={item}
+                  key={item.id}
+                />
+              ))
+            }
+          </List>
+        )
+      )
     }
   </MainContentWrapper>
 )
@@ -46,6 +61,10 @@ const Header = styled.h2`
   color: white;
   margin: 0 0 20px;
   font-size: 3rem;
+`
+
+const List = styled.ul`
+  background-color: pink;
 `
 
 const MainContentWrapper = styled.div`

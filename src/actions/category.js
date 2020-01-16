@@ -6,7 +6,7 @@ export const FETCH_CATEGORY_PLAYLISTS = 'FETCH_CATEGORY_PLAYLISTS'
 export const FETCH_CATEGORY_PLAYLISTS_FAILURE = 'FETCH_CATEGORY_PLAYLISTS_FAILURE'
 export const FETCH_CATEGORY_PLAYLISTS_SUCCESS = 'FETCH_CATEGORY_PLAYLISTS_SUCCESS'
 
-export const fetchCategoryPlaylists = (categoryId, token) => dispatch => {
+export const fetchCategoryPlaylists = (categoryId, categoryName, token) => dispatch => {
   dispatch({ type: FETCH_CATEGORY_PLAYLISTS })
 
   return axios
@@ -16,13 +16,12 @@ export const fetchCategoryPlaylists = (categoryId, token) => dispatch => {
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORY_PLAYLISTS_SUCCESS, payload })
-      console.log(payload)
       dispatch({
         type: SET_CURRENT_CONTENT,
         payload: {
           display: 'grid',
           data: 'category',
-          header: 'Category playlists'
+          header: `${categoryName} playlists`
         }
       })
     })
