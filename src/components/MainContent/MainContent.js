@@ -8,23 +8,35 @@ import Grid from 'components/Grid/Grid'
 import List from 'components/List/List'
 
 const MainContent = ({
-  content,
-  currentContent
+  header,
+  isDataLoading,
+  items,
+  layout
 }) => (
   <MainContentWrapper>
     {
-      currentContent &&
+      header &&
         <Header>
-          {currentContent.header}
+          {header}
         </Header>
     }
+
     {
-      content && content.items && (
-        currentContent.display === 'grid' ? (
-          <Grid items={content.items} />
-        ) : (
-          <List items={content.items} />
-        )
+      isDataLoading ? (
+        <div>
+          <p>Data is loading...</p>
+        </div>
+      ) : (
+        (() => {
+          switch (layout) {
+            case 'grid':
+              return <Grid items={items} />
+            case 'list':
+              return <List items={items} />
+            default:
+              return null
+          }
+        })()
       )
     }
   </MainContentWrapper>
@@ -45,17 +57,21 @@ const MainContentWrapper = styled.div`
 `
 
 const mapStateToProps = (state) => {
-  const { currentContent } = state
+  const { header, items, layout } = state.currentContent
 
   return {
-    currentContent,
-    content: state[currentContent.data]
+    header: header,
+    isDataLoading: state.loaders.isDataLoading,
+    items: items,
+    layout: layout
   }
 }
 
 MainContent.propTypes = {
-  content: PropTypes.object,
-  currentContent: PropTypes.object
+  header: PropTypes.string,
+  isDataLoading: PropTypes.bool,
+  items: PropTypes.array,
+  layout: PropTypes.string
 }
 
 export default connect(mapStateToProps)(MainContent)

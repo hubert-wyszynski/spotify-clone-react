@@ -11,7 +11,7 @@ const CurrentSong = ({
     if (track.album) {
       return track.album.images[2].url
     } else {
-      return albumCover
+      // return albumCover
     }
   }
   return (
@@ -67,11 +67,9 @@ const Title = styled.p`
 `
 
 const mapStateToProps = (state) => {
-  const { album, player } = state
-
   return {
-    track: player.track,
-    albumCover: album.albumCover
+    track: state.player.track
+    // albumCover: album.albumCover
   }
 }
 

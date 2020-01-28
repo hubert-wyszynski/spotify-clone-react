@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { fetchAlbumTracks } from 'actions/album'
-import { fetchCategoryPlaylists } from 'actions/category'
+import { fetchCategoryPlaylists } from 'actions/categories'
 import { fetchPlaylistTracks } from 'actions/playlist'
 
 import { connect } from 'react-redux'
@@ -24,8 +24,8 @@ const GridItem = ({
     } else return item.icons[0].url
   }
 
-  const fetchItem = (item, token) => {
-    switch (currentContent.data) {
+  const fetchData = (item, token) => {
+    switch (currentContent.type) {
       case 'categories':
         fetchCategoryPlaylists(item.id, item.name, token)
         break
@@ -43,7 +43,7 @@ const GridItem = ({
   return (
     <Wrapper
       key={item.id}
-      onClick={() => fetchItem(item, token)}
+      onClick={() => fetchData(item, token)}
     >
       <Image
         src={getImage(item)}
