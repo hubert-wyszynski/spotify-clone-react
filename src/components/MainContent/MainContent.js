@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import Grid from 'components/Grid/Grid'
 import List from 'components/List/List'
+import Spinner from 'components/Spinner/Spinner'
 
 const MainContent = ({
   header,
@@ -15,28 +16,26 @@ const MainContent = ({
 }) => (
   <MainContentWrapper>
     {
-      header &&
-        <Header>
-          {header}
-        </Header>
-    }
-
-    {
       isDataLoading ? (
-        <div>
-          <p>Data is loading...</p>
-        </div>
+        <Spinner />
       ) : (
-        (() => {
-          switch (layout) {
-            case 'grid':
-              return <Grid items={items} />
-            case 'list':
-              return <List items={items} />
-            default:
-              return null
+        <>
+          <Header>
+            {header}
+          </Header>
+          {
+            (() => {
+              switch (layout) {
+                case 'grid':
+                  return <Grid items={items} />
+                case 'list':
+                  return <List items={items} />
+                default:
+                  return null
+              }
+            })()
           }
-        })()
+        </>
       )
     }
   </MainContentWrapper>
@@ -54,6 +53,7 @@ const MainContentWrapper = styled.div`
   height: 100%;
   padding: 55px 18px 0;
   width: calc(100% - 200px);
+  position: relative;
 `
 
 const mapStateToProps = (state) => {
