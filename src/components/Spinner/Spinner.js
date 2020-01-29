@@ -1,10 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
-const Spinner = () => (
+const Spinner = ({ text }) => (
   <SpinnerWrapper>
     <SpinnerAnimation />
-    <Text>Loading...</Text>
+    {
+      text &&
+        <Text>Loading...</Text>
+    }
   </SpinnerWrapper>
 )
 
@@ -42,6 +46,15 @@ const Text = styled.p`
   font-size: 1.4rem;
   color: #bfbfbf;
   font-weight: 300;
+  margin-bottom: 0;
 `
+
+Spinner.propTypes = {
+  text: PropTypes.bool
+}
+
+Spinner.defaultProps = {
+  text: true
+}
 
 export default Spinner

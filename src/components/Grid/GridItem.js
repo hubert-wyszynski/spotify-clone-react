@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { connect } from 'react-redux'
+
+import ItemCover from 'components/Grid/ItemCover'
 
 import { fetchAlbumTracks } from 'actions/album'
 import { fetchCategoryPlaylists } from 'actions/categories'
 import { fetchPlaylistTracks } from 'actions/playlist'
-
-import { connect } from 'react-redux'
-
-import styled from 'styled-components'
 
 const GridItem = ({
   currentContent,
@@ -45,8 +45,8 @@ const GridItem = ({
       key={item.id}
       onClick={() => fetchData(item, token)}
     >
-      <Image
-        src={getImage(item)}
+      <ItemCover
+        img={getImage(item)}
       />
       <Title>
         {item.name}
@@ -77,14 +77,6 @@ const Title = styled.h3`
   font-size: 1.4rem;
   font-weight: 300;
   margin: 6px 0 4px;
-`
-
-const Image = styled.img`
-  width: 100%;
-
-  &:hover {
-    filter: brightness(0.3);
-  }
 `
 
 const mapDispatchToProps = {
