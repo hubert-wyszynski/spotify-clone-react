@@ -15,7 +15,7 @@ const List = ({ items }) => (
     <ListWrapper>
       {
         items
-          .filter(item => item.track !== null)
+          .filter(item => item.track !== null && item.preview !== null)
           .map((item, index) => {
             const i = item.track ? item.track : item
 
