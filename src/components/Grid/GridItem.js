@@ -8,6 +8,7 @@ import ItemCover from 'components/Grid/ItemCover'
 import { fetchAlbumTracks } from 'actions/album'
 import { fetchCategoryPlaylists } from 'actions/categories'
 import { fetchPlaylistTracks } from 'actions/playlist'
+import { playTrack } from 'actions/player'
 
 const GridItem = ({
   displayedContent,
@@ -15,16 +16,20 @@ const GridItem = ({
   fetchCategoryPlaylists,
   fetchPlaylistTracks,
   item,
+  playTrack,
   token
 }) => {
   const getImage = (item) => {
     const hasImage = Object.prototype.hasOwnProperty.call(item, 'images')
     const hasIcons = Object.prototype.hasOwnProperty.call(item, 'icons')
+    const hasAlbumsCover = Object.prototype.hasOwnProperty.call(item, 'album')
 
     if (hasImage && item.images.length) {
       return item.images[0].url
     } else if (hasIcons && item.icons.length) {
       return item.icons[0].url
+    } else if (hasAlbumsCover) {
+      return item.album.images[0].url
     } else return null
   }
 
@@ -35,12 +40,16 @@ const GridItem = ({
         break
       case 'releases':
       case 'albums':
-      case 'track':
         fetchAlbumTracks(item.id, item.name, token)
         break
       case 'category':
       case 'playlist':
         fetchPlaylistTracks(item.id, item.name, token)
+        break
+      case 'track':
+        // fetchTrack(item.id, token)
+        playTrack(item)
+        fetchAlbumTracks(item.album.id, item.album.name, token)
         break
       default:
         break
@@ -89,7 +98,8 @@ const Title = styled.h3`
 const mapDispatchToProps = {
   fetchAlbumTracks,
   fetchCategoryPlaylists,
-  fetchPlaylistTracks
+  fetchPlaylistTracks,
+  playTrack
 }
 
 const mapStateToProps = (state) => {
@@ -106,6 +116,7 @@ GridItem.propTypes = {
   fetchCategoryPlaylists: PropTypes.func,
   fetchPlaylistTracks: PropTypes.func,
   item: PropTypes.object,
+  playTrack: PropTypes.func,
   token: PropTypes.string
 }
 

@@ -29,11 +29,13 @@ const MainContent = ({
             (() => {
               switch (layout) {
                 case 'grid':
-                  return <Grid
-                    displayedContent={displayedContent}
-                    fixedHeight
-                    items={items}
-                  />
+                  return (
+                    <Grid
+                      displayedContent={displayedContent}
+                      fixedHeight
+                      items={items}
+                    />
+                  )
                 case 'list':
                   return <List items={items} />
                 case 'mixed':
