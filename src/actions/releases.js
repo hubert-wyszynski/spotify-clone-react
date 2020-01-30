@@ -1,4 +1,6 @@
-import axios from 'axios'
+import { createAxiosInstance } from 'utils/axios'
+
+import store from 'store/index'
 
 import {
   ENABLE_LOADING_STATE,
@@ -7,16 +9,14 @@ import {
 
 export const FETCH_NEW_RELEASES_SUCCESS = 'FETCH_NEW_RELEASES_SUCCESS'
 
-export const fetchNewReleases = (token) => dispatch => {
+export const fetchNewReleases = () => dispatch => {
+  const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      'https://api.spotify.com/v1/browse/new-releases',
-      {
-        params: { limit: 50 },
-        headers: { Authorization: 'Bearer ' + token }
-      }
+      'browse/new-releases',
+      { params: { limit: 50 } }
     )
     .then(payload => {
       dispatch({ type: FETCH_NEW_RELEASES_SUCCESS, payload })

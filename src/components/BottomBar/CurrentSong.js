@@ -69,7 +69,6 @@ const Title = styled.p`
 const mapStateToProps = (state) => {
   return {
     track: state.player.track
-    // albumCover: album.albumCover
   }
 }
 

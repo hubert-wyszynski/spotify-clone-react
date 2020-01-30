@@ -1,4 +1,6 @@
-import axios from 'axios'
+import { createAxiosInstance } from 'utils/axios'
+
+import store from 'store/index'
 
 import {
   ENABLE_LOADING_STATE,
@@ -7,13 +9,13 @@ import {
 
 export const FETCH_ALBUM_TRACKS_SUCCESS = 'FETCH_ALBUM_TRACKS_SUCCESS'
 
-export const fetchAlbumTracks = (albumId, albumName, token) => dispatch => {
+export const fetchAlbumTracks = (albumId, albumName) => dispatch => {
+  const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      `https://api.spotify.com/v1/albums/${albumId}`,
-      { headers: { Authorization: 'Bearer ' + token } }
+      `albums/${albumId}`
     )
     .then(payload => {
       dispatch({ type: FETCH_ALBUM_TRACKS_SUCCESS, payload: { ...payload, albumName } })

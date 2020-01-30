@@ -6,13 +6,12 @@ import styled from 'styled-components'
 import { searchForItems } from '../../actions/search'
 
 const Search = ({
-  searchForItems,
-  token
+  searchForItems
 }) => {
   const [query, setQuery] = useState('')
 
   useEffect(() => {
-    if (query !== '') searchForItems(query, token)
+    if (query !== '') searchForItems(query)
   }, [query])
 
   const handleInputChange = (e) => {
@@ -93,15 +92,12 @@ const RemoveIcon = styled.i`
   right: 6px;
 `
 
-const mapStateToProps = ({ token }) => token
-
 const mapDispatchToProps = {
   searchForItems
 }
 
 Search.propTypes = {
-  searchForItems: PropTypes.func,
-  token: PropTypes.string
+  searchForItems: PropTypes.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(null, mapDispatchToProps)(Search)

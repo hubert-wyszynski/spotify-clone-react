@@ -1,4 +1,6 @@
-import axios from 'axios'
+import { createAxiosInstance } from 'utils/axios'
+
+import store from 'store/index'
 
 import {
   ENABLE_LOADING_STATE,
@@ -7,18 +9,18 @@ import {
 
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
 
-export const searchForItems = (query, token) => dispatch => {
+export const searchForItems = (query) => dispatch => {
+  const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      'https://api.spotify.com/v1/search',
+      'search',
       {
         params: {
           q: query,
-          type: 'album,artist,playlist,track'
-        },
-        headers: { Authorization: 'Bearer ' + token }
+          type: 'album,playlist,track'
+        }
       }
     )
     .then(payload => {

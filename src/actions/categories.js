@@ -1,4 +1,6 @@
-import axios from 'axios'
+import { createAxiosInstance } from 'utils/axios'
+
+import store from 'store/index'
 
 import {
   ENABLE_LOADING_STATE,
@@ -8,16 +10,14 @@ import {
 export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS'
 export const FETCH_CATEGORY_PLAYLISTS_SUCCESS = 'FETCH_CATEGORY_PLAYLISTS_SUCCESS'
 
-export const fetchCategories = (token) => dispatch => {
+export const fetchCategories = () => dispatch => {
+  const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      'https://api.spotify.com/v1/browse/categories',
-      {
-        params: { limit: 50 },
-        headers: { Authorization: 'Bearer ' + token }
-      }
+      'browse/categories',
+      { params: { limit: 50 } }
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload })
@@ -29,16 +29,14 @@ export const fetchCategories = (token) => dispatch => {
     })
 }
 
-export const fetchCategoryPlaylists = (categoryId, categoryName, token) => dispatch => {
+export const fetchCategoryPlaylists = (categoryId, categoryName) => dispatch => {
+  const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists`,
-      {
-        params: { limit: 50 },
-        headers: { Authorization: 'Bearer ' + token }
-      }
+      `browse/categories/${categoryId}/playlists`,
+      { params: { limit: 50 } }
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORY_PLAYLISTS_SUCCESS, payload: { ...payload, categoryName } })

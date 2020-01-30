@@ -16,8 +16,7 @@ const GridItem = ({
   fetchCategoryPlaylists,
   fetchPlaylistTracks,
   item,
-  playTrack,
-  token
+  playTrack
 }) => {
   const getImage = (item) => {
     const hasImage = Object.prototype.hasOwnProperty.call(item, 'images')
@@ -33,23 +32,22 @@ const GridItem = ({
     } else return null
   }
 
-  const fetchData = (item, token) => {
+  const fetchData = (item) => {
     switch (displayedContent) {
       case 'categories':
-        fetchCategoryPlaylists(item.id, item.name, token)
+        fetchCategoryPlaylists(item.id, item.name)
         break
       case 'releases':
       case 'albums':
-        fetchAlbumTracks(item.id, item.name, token)
+        fetchAlbumTracks(item.id, item.name)
         break
       case 'category':
       case 'playlist':
-        fetchPlaylistTracks(item.id, item.name, token)
+        fetchPlaylistTracks(item.id, item.name)
         break
       case 'track':
-        // fetchTrack(item.id, token)
         playTrack(item)
-        fetchAlbumTracks(item.album.id, item.album.name, token)
+        fetchAlbumTracks(item.album.id, item.album.name)
         break
       default:
         break
@@ -59,7 +57,7 @@ const GridItem = ({
   return (
     <Wrapper
       key={item.id}
-      onClick={() => fetchData(item, token)}
+      onClick={() => fetchData(item)}
     >
       <ItemCover
         img={getImage(item)}
@@ -102,22 +100,13 @@ const mapDispatchToProps = {
   playTrack
 }
 
-const mapStateToProps = (state) => {
-  const { token } = state
-
-  return {
-    token: token.token
-  }
-}
-
 GridItem.propTypes = {
   displayedContent: PropTypes.string,
   fetchAlbumTracks: PropTypes.func,
   fetchCategoryPlaylists: PropTypes.func,
   fetchPlaylistTracks: PropTypes.func,
   item: PropTypes.object,
-  playTrack: PropTypes.func,
-  token: PropTypes.string
+  playTrack: PropTypes.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GridItem)
+export default connect(null, mapDispatchToProps)(GridItem)
