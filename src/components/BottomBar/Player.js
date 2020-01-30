@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
@@ -11,8 +11,10 @@ const Player = ({
   togglePlayer,
   track
 }) => {
+  const playerRef = useRef(null)
+
   const togglePlay = () => {
-    const player = document.getElementById('myplayer')
+    const player = playerRef.current
     togglePlayer()
     return player.paused ? player.play() : player.pause()
   }
@@ -34,7 +36,7 @@ const Player = ({
         />
       </PlayStopButton>
       <audio
-        id='myplayer'
+        ref={playerRef}
         src={track ? track.preview_url : null}
         autoPlay
         onEnded={() => handleTrackFinish()}
