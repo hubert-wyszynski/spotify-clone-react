@@ -10,7 +10,7 @@ import { fetchCategoryPlaylists } from 'actions/categories'
 import { fetchPlaylistTracks } from 'actions/playlist'
 
 const GridItem = ({
-  currentContent,
+  displayedContent,
   fetchAlbumTracks,
   fetchCategoryPlaylists,
   fetchPlaylistTracks,
@@ -19,20 +19,27 @@ const GridItem = ({
 }) => {
   const getImage = (item) => {
     const hasImage = Object.prototype.hasOwnProperty.call(item, 'images')
-    if (hasImage) {
+    const hasIcons = Object.prototype.hasOwnProperty.call(item, 'icons')
+
+    if (hasImage && item.images.length) {
       return item.images[0].url
-    } else return item.icons[0].url
+    } else if (hasIcons && item.icons.length) {
+      return item.icons[0].url
+    } else return null
   }
 
   const fetchData = (item, token) => {
-    switch (currentContent.type) {
+    switch (displayedContent) {
       case 'categories':
         fetchCategoryPlaylists(item.id, item.name, token)
         break
       case 'releases':
+      case 'albums':
+      case 'track':
         fetchAlbumTracks(item.id, item.name, token)
         break
       case 'category':
+      case 'playlist':
         fetchPlaylistTracks(item.id, item.name, token)
         break
       default:
@@ -74,7 +81,7 @@ const Artist = styled.h4`
 
 const Title = styled.h3`
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 300;
   margin: 6px 0 4px;
 `
@@ -86,16 +93,15 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => {
-  const { token, currentContent } = state
+  const { token } = state
 
   return {
-    token: token.token,
-    currentContent
+    token: token.token
   }
 }
 
 GridItem.propTypes = {
-  currentContent: PropTypes.object,
+  displayedContent: PropTypes.string,
   fetchAlbumTracks: PropTypes.func,
   fetchCategoryPlaylists: PropTypes.func,
   fetchPlaylistTracks: PropTypes.func,

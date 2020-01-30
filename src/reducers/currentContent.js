@@ -5,6 +5,7 @@ import {
 } from 'actions/categories'
 import { FETCH_PLAYLIST_TRACKS_SUCCESS } from 'actions/playlist'
 import { FETCH_NEW_RELEASES_SUCCESS } from 'actions/releases'
+import { SEARCH_SUCCESS } from 'actions/search'
 
 const initialState = {
   header: null,
@@ -55,6 +56,15 @@ const currentContent = (state = initialState, action) => {
         items: action.payload.data.items,
         layout: 'list',
         type: 'playlist'
+      }
+    case SEARCH_SUCCESS:
+      console.log(action.payload.data)
+      return {
+        ...state,
+        header: 'Search results',
+        items: action.payload.data,
+        layout: 'mixed',
+        type: 'search_results'
       }
     default:
       return state
