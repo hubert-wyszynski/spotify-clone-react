@@ -7,19 +7,24 @@ import {
   DISABLE_LOADING_STATE
 } from 'actions/loaders'
 
-export const FETCH_NEW_RELEASES_SUCCESS = 'FETCH_NEW_RELEASES_SUCCESS'
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
 
-export const fetchNewReleases = () => dispatch => {
+export const searchForItems = (query) => dispatch => {
   const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      'browse/new-releases',
-      { params: { limit: 50 } }
+      'search',
+      {
+        params: {
+          q: query,
+          type: 'album,playlist,track'
+        }
+      }
     )
     .then(payload => {
-      dispatch({ type: FETCH_NEW_RELEASES_SUCCESS, payload })
+      dispatch({ type: SEARCH_SUCCESS, payload })
       dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {

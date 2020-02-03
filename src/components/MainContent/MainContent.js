@@ -6,25 +6,46 @@ import styled from 'styled-components'
 
 import Grid from 'components/Grid/Grid'
 import List from 'components/List/List'
+import SearchResults from 'components/SearchResults/SearchResults'
+import Spinner from 'components/Spinner/Spinner'
 
 const MainContent = ({
-  content,
-  currentContent
+  displayedContent,
+  header,
+  isDataLoading,
+  items,
+  layout
 }) => (
   <MainContentWrapper>
     {
-      currentContent &&
-        <Header>
-          {currentContent.header}
-        </Header>
-    }
-    {
-      content && content.items && (
-        currentContent.display === 'grid' ? (
-          <Grid items={content.items} />
-        ) : (
-          <List items={content.items} />
-        )
+      isDataLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Header>
+            {header}
+          </Header>
+          {
+            (() => {
+              switch (layout) {
+                case 'grid':
+                  return (
+                    <Grid
+                      displayedContent={displayedContent}
+                      fixedHeight
+                      items={items}
+                    />
+                  )
+                case 'list':
+                  return <List items={items} />
+                case 'mixed':
+                  return <SearchResults items={items} />
+                default:
+                  return null
+              }
+            })()
+          }
+        </>
       )
     }
   </MainContentWrapper>
@@ -42,20 +63,30 @@ const MainContentWrapper = styled.div`
   height: 100%;
   padding: 55px 18px 0;
   width: calc(100% - 200px);
+  position: relative;
 `
 
 const mapStateToProps = (state) => {
-  const { currentContent } = state
+  const { header, items, layout, type } = state.currentContent
 
   return {
-    currentContent,
-    content: state[currentContent.data]
+    displayedContent: type,
+    header: header,
+    isDataLoading: state.loaders.isDataLoading,
+    items: items,
+    layout: layout
   }
 }
 
 MainContent.propTypes = {
-  content: PropTypes.object,
-  currentContent: PropTypes.object
+  displayedContent: PropTypes.string,
+  header: PropTypes.string,
+  isDataLoading: PropTypes.bool,
+  items: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
+  layout: PropTypes.string
 }
 
 export default connect(mapStateToProps)(MainContent)

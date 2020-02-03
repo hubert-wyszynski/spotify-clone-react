@@ -1,23 +1,48 @@
-import React from 'react'
+import React , { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import styled from 'styled-components'
+import { searchForItems } from '../../actions/search'
 
-class Search extends React.Component {
-  render () {
-    return (
+const Search = ({
+  searchForItems
+}) => {
+  const [query, setQuery] = useState('')
+
+  useEffect(() => {
+    if (query !== '') searchForItems(query)
+  }, [query])
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value)
+  }
+
+  const clearInput = () => {
+    setQuery('')
+  }
+
+  return (
+    <>
       <SearchWrapper>
         <Icon
           className='fa fa-search'
         />
         <Input
           placeholder='Search'
+          onChange={(e) => handleInputChange(e)}
+          value={query}
         />
-        <RemoveIcon
-          className='fas fa-times-circle'
-        />
+        {
+          query &&
+            <RemoveIcon
+              className='fas fa-times-circle'
+              onClick={clearInput}
+            />
+        }
       </SearchWrapper>
-    )
-  }
+    </>
+  )
 }
 
 const SearchWrapper = styled.div`
@@ -67,4 +92,12 @@ const RemoveIcon = styled.i`
   right: 6px;
 `
 
-export default Search
+const mapDispatchToProps = {
+  searchForItems
+}
+
+Search.propTypes = {
+  searchForItems: PropTypes.func
+}
+
+export default connect(null, mapDispatchToProps)(Search)

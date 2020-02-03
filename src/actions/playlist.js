@@ -1,32 +1,28 @@
-import axios from 'axios'
+import { createAxiosInstance } from 'utils/axios'
 
-import { SET_CURRENT_CONTENT } from 'actions/currentContent'
+import store from 'store/index'
 
-export const FETCH_PLAYLIST_TRACKS = 'FETCH_PLAYLIST_TRACKS'
-export const FETCH_PLAYLIST_TRACKS_FAILURE = 'FETCH_PLAYLIST_TRACKS_FAILURE'
+import {
+  ENABLE_LOADING_STATE,
+  DISABLE_LOADING_STATE
+} from 'actions/loaders'
+
 export const FETCH_PLAYLIST_TRACKS_SUCCESS = 'FETCH_PLAYLIST_TRACKS_SUCCESS'
 
-export const fetchPlaylistTracks = (playlistId, playlistName, token) => dispatch => {
-  dispatch({ type: FETCH_PLAYLIST_TRACKS })
+export const fetchPlaylistTracks = (playlistId, playlistName) => dispatch => {
+  const axios = createAxiosInstance(store)
+  dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-      { params: {}, headers: { 'Authorization': 'Bearer ' + token } }
+      `playlists/${playlistId}/tracks`
     )
     .then(payload => {
-      dispatch({ type: FETCH_PLAYLIST_TRACKS_SUCCESS, payload })
-      dispatch({
-        type: SET_CURRENT_CONTENT,
-        payload: {
-          display: 'list',
-          data: 'playlist',
-          header: `${playlistName}`
-        }
-      })
+      dispatch({ type: FETCH_PLAYLIST_TRACKS_SUCCESS, payload: { ...payload, playlistName } })
+      dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {
       console.log(err)
-      dispatch({ type: FETCH_PLAYLIST_TRACKS_FAILURE })
+      dispatch({ type: DISABLE_LOADING_STATE })
     })
 }

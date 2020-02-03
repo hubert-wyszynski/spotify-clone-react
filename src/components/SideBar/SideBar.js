@@ -8,13 +8,13 @@ import { connect } from 'react-redux'
 
 import styled from 'styled-components'
 
-const SideBar = ({ fetchCategories, fetchNewReleases, token }) => {
+const SideBar = ({ fetchCategories, fetchNewReleases }) => {
   return (
     <SideBarWrapper>
-      <SidebarElement onClick={() => fetchCategories(token)}>
+      <SidebarElement onClick={fetchCategories}>
         Categories
       </SidebarElement>
-      <SidebarElement onClick={() => fetchNewReleases(token)}>
+      <SidebarElement onClick={fetchNewReleases}>
         New releases
       </SidebarElement>
     </SideBarWrapper>
@@ -48,8 +48,6 @@ const SidebarElement = styled.button`
   }
 `
 
-const mapStateToProps = ({ token }) => token
-
 const mapDispatchToProps = {
   fetchCategories,
   fetchNewReleases
@@ -57,8 +55,7 @@ const mapDispatchToProps = {
 
 SideBar.propTypes = {
   fetchCategories: PropTypes.func,
-  fetchNewReleases: PropTypes.func,
-  token: PropTypes.string
+  fetchNewReleases: PropTypes.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBar)
+export default connect(null, mapDispatchToProps)(SideBar)

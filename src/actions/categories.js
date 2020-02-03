@@ -1,32 +1,49 @@
-import axios from 'axios'
+import { createAxiosInstance } from 'utils/axios'
 
-import { SET_CURRENT_CONTENT } from 'actions/currentContent'
+import store from 'store/index'
 
-export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
-export const FETCH_CATEGORIES_FAILURE = 'FETCH_CATEGORIES_FAILURE'
+import {
+  ENABLE_LOADING_STATE,
+  DISABLE_LOADING_STATE
+} from 'actions/loaders'
+
 export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS'
+export const FETCH_CATEGORY_PLAYLISTS_SUCCESS = 'FETCH_CATEGORY_PLAYLISTS_SUCCESS'
 
-export const fetchCategories = (token) => dispatch => {
-  dispatch({ type: FETCH_CATEGORIES })
+export const fetchCategories = () => dispatch => {
+  const axios = createAxiosInstance(store)
+  dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      'https://api.spotify.com/v1/browse/categories',
-      { params: {}, headers: { 'Authorization': 'Bearer ' + token } }
+      'browse/categories',
+      { params: { limit: 50 } }
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload })
-      dispatch({
-        type: SET_CURRENT_CONTENT,
-        payload: {
-          display: 'grid',
-          data: 'categories',
-          header: 'Categories'
-        }
-      })
+      dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {
       console.log(err)
-      dispatch({ type: FETCH_CATEGORIES_FAILURE })
+      dispatch({ type: DISABLE_LOADING_STATE })
+    })
+}
+
+export const fetchCategoryPlaylists = (categoryId, categoryName) => dispatch => {
+  const axios = createAxiosInstance(store)
+  dispatch({ type: ENABLE_LOADING_STATE })
+
+  return axios
+    .get(
+      `browse/categories/${categoryId}/playlists`,
+      { params: { limit: 50 } }
+    )
+    .then(payload => {
+      dispatch({ type: FETCH_CATEGORY_PLAYLISTS_SUCCESS, payload: { ...payload, categoryName } })
+      dispatch({ type: DISABLE_LOADING_STATE })
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch({ type: DISABLE_LOADING_STATE })
     })
 }
