@@ -20,7 +20,7 @@ const Player = ({
   }
 
   const handleTrackFinish = () => {
-    const player = document.getElementById('myplayer')
+    const player = playerRef.current
     clearPlayer()
     player.setAttribute('src', null)
   }
