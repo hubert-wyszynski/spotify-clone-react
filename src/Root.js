@@ -1,12 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import PropTypes from 'prop-types'
-
 import { createGlobalStyle } from 'styled-components'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
-import Login from 'components/Login/Login'
-import AppWrapper from 'components/AppWrapper/AppWrapper'
+import Login from 'views/Login/Login'
+import AppWrapper from 'views/AppWrapper/AppWrapper'
 
 import { setToken } from 'actions/token'
 
@@ -22,7 +21,7 @@ const hash = window.location.hash
   }, {})
 window.location.hash = ''
 
-class App extends React.Component {
+class Root extends React.Component {
   componentDidMount () {
     const _token = hash.access_token
     if (_token) {
@@ -32,17 +31,22 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <>
         <GlobalStyle />
-        {!this.props.token && (
-          <Login />
-        )}
-        {
-          this.props.token && (
-            <AppWrapper />
-          )
-        }
-      </div>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/login' component={Login} />
+            <Route path='/' component={AppWrapper} />
+          </Switch>
+          {
+            this.props.token ? (
+              <Redirect to='/' />
+            ) : (
+              <Redirect to='/login' />
+            )
+          }
+        </BrowserRouter>
+      </>
     )
   }
 }
@@ -80,9 +84,9 @@ const mapDispatchToProps = {
   setToken
 }
 
-App.propTypes = {
+Root.propTypes = {
   setToken: PropTypes.func,
   token: PropTypes.string
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(Root)
