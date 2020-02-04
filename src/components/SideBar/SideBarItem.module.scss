@@ -1,0 +1,24 @@
+.item {
+  color: gray;  
+  padding: 1px 16px;
+  margin: 0 0 8px;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.itemActive {
+  color: #fff;
+  position: relative;
+
+  &:before {
+    content: '';
+    height: 100%;
+    width: 4px;
+    background-color: #0ece52;
+    border-radius: 0 1px 1px 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

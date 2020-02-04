@@ -1,7 +1,28 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-const Categories = () => (
-  <p>Categories</p>
+import Grid from 'components/Grid/Grid'
+
+const Categories = ({
+  items
+}) => (
+  <>
+    <Grid
+      items={items}
+    />
+  </>
 )
 
-export default Categories
+const mapStateToProps = (state) => {
+  const { categories } = state
+  return {
+    items: categories.items
+  }
+}
+
+Categories.propTypes = {
+  items: PropTypes.array
+}
+
+export default connect(mapStateToProps)(Categories)

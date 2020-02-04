@@ -1,12 +1,29 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-const SideBar = () => {
+import SideBarItem from './SideBarItem'
+
+import { fetchCategories } from 'actions/categories'
+
+const SideBar = ({
+  fetchCategories
+}) => {
   return (
     <SideBarWrapper>
-      <NavLink to='/browse'>Browse</NavLink>
-      <NavLink to='/categories'>Categories</NavLink>
+      <NavItemsWrapper>
+        <SideBarItem
+          label='Categories'
+          linkTo='/categories'
+          onClick={() => fetchCategories()}
+        />
+        <SideBarItem
+          label='Browse'
+          linkTo='/browse'
+          onClick={() => fetchCategories()}
+        />
+      </NavItemsWrapper>
     </SideBarWrapper>
   )
 }
@@ -14,9 +31,22 @@ const SideBar = () => {
 const SideBarWrapper = styled.div`
   background-color: #151515;
   height: 100%;
-  padding: 60px 12px 0;
+  padding: 60px 0 0;
   width: 200px;
   color: white;
 `
 
-export default SideBar
+const NavItemsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const mapDispatchToProps = {
+  fetchCategories
+}
+
+SideBar.propTypes = {
+  fetchCategories: PropTypes.func
+}
+
+export default connect(null, mapDispatchToProps)(SideBar)
