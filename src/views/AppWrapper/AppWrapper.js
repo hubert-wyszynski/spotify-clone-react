@@ -24,7 +24,7 @@ export default AppWrapper
 
 const Desktop = styled.div`
   align-items: center;
-  background-color: #fff;
+  background-color: #193a5d;
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -37,7 +37,6 @@ const ContentWrapper = styled.div`
 `
 
 const AppWindow = styled.div`
-  background-color: white;
   border-radius: 6px;
   display: flex;
   flex-direction: column;

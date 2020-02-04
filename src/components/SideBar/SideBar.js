@@ -1,22 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { fetchCategories } from 'actions/categories'
-import { fetchNewReleases } from 'actions/releases'
-
 import { connect } from 'react-redux'
-
 import styled from 'styled-components'
 
-const SideBar = ({ fetchCategories, fetchNewReleases }) => {
+import SideBarItem from './SideBarItem'
+
+import { fetchCategories } from 'actions/categories'
+
+const SideBar = ({
+  fetchCategories
+}) => {
   return (
     <SideBarWrapper>
-      <SidebarElement onClick={fetchCategories}>
-        Categories
-      </SidebarElement>
-      <SidebarElement onClick={fetchNewReleases}>
-        New releases
-      </SidebarElement>
+      <NavItemsWrapper>
+        <SideBarItem
+          label='Categories'
+          linkTo='/categories'
+          onClick={() => fetchCategories()}
+        />
+        <SideBarItem
+          label='Browse'
+          linkTo='/browse'
+          onClick={() => fetchCategories()}
+        />
+      </NavItemsWrapper>
     </SideBarWrapper>
   )
 }
@@ -24,38 +31,22 @@ const SideBar = ({ fetchCategories, fetchNewReleases }) => {
 const SideBarWrapper = styled.div`
   background-color: #151515;
   height: 100%;
-  padding: 60px 12px 0;
+  padding: 60px 0 0;
   width: 200px;
   color: white;
 `
 
-const SidebarElement = styled.button`
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  color: #989898;
-  display: block;
-  font-size: 1.4rem;
-  margin: 0 0 8px;
-  padding: 0;
-
-  &:hover {
-    color: #fff;
-  }
-
-  &:focus {
-    outline: none;
-  }
+const NavItemsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 const mapDispatchToProps = {
-  fetchCategories,
-  fetchNewReleases
+  fetchCategories
 }
 
 SideBar.propTypes = {
-  fetchCategories: PropTypes.func,
-  fetchNewReleases: PropTypes.func
+  fetchCategories: PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(SideBar)
