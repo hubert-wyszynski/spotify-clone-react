@@ -6,22 +6,24 @@ import styled from 'styled-components'
 import SideBarItem from './SideBarItem'
 
 import { fetchCategories } from 'actions/categories'
+import { fetchNewReleases } from 'actions/releases'
 
 const SideBar = ({
-  fetchCategories
+  fetchCategories,
+  fetchNewReleases
 }) => {
   return (
     <SideBarWrapper>
       <NavItemsWrapper>
         <SideBarItem
-          label='Categories'
-          linkTo='/categories'
-          onClick={() => fetchCategories()}
-        />
-        <SideBarItem
           label='Browse'
           linkTo='/browse'
-          onClick={() => fetchCategories()}
+          clickHandler={fetchCategories}
+        />
+        <SideBarItem
+          label='New releases'
+          linkTo='/releases'
+          clickHandler={fetchNewReleases}
         />
       </NavItemsWrapper>
     </SideBarWrapper>
@@ -42,11 +44,13 @@ const NavItemsWrapper = styled.div`
 `
 
 const mapDispatchToProps = {
-  fetchCategories
+  fetchCategories,
+  fetchNewReleases
 }
 
 SideBar.propTypes = {
-  fetchCategories: PropTypes.func
+  fetchCategories: PropTypes.func,
+  fetchNewReleases: PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(SideBar)

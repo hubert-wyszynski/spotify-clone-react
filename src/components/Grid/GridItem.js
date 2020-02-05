@@ -1,75 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { connect } from 'react-redux'
+import styled, { css } from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import ItemCover from 'components/Grid/ItemCover'
 
-import { fetchAlbumTracks } from 'actions/album'
-import { fetchCategoryPlaylists } from 'actions/categories'
-import { fetchPlaylistTracks } from 'actions/playlist'
-import { playTrack } from 'actions/player'
-
 const GridItem = ({
-  displayedContent,
-  fetchAlbumTracks,
-  fetchCategoryPlaylists,
-  fetchPlaylistTracks,
+  clickHandler,
+  clickHandlerParams,
+  cover,
   item,
-  playTrack
+  linkTo,
+  title,
+  titleCentered,
+  subtitle
 }) => {
-  const getImage = (item) => {
-    const hasImage = Object.prototype.hasOwnProperty.call(item, 'images')
-    const hasIcons = Object.prototype.hasOwnProperty.call(item, 'icons')
-    const hasAlbumsCover = Object.prototype.hasOwnProperty.call(item, 'album')
-
-    if (hasImage && item.images.length) {
-      return item.images[0].url
-    } else if (hasIcons && item.icons.length) {
-      return item.icons[0].url
-    } else if (hasAlbumsCover) {
-      return item.album.images[0].url
-    } else return null
-  }
-
-  const fetchData = (item) => {
-    switch (displayedContent) {
-      case 'categories':
-        fetchCategoryPlaylists(item.id, item.name)
-        break
-      case 'releases':
-      case 'albums':
-        fetchAlbumTracks(item.id, item.name)
-        break
-      case 'category':
-      case 'playlist':
-        fetchPlaylistTracks(item.id, item.name)
-        break
-      case 'track':
-        playTrack(item)
-        fetchAlbumTracks(item.album.id, item.album.name)
-        break
-      default:
-        break
-    }
-  }
-
   return (
-    <Wrapper
-      key={item.id}
-      onClick={() => fetchData(item)}
-    >
-      <ItemCover
-        img={getImage(item)}
-      />
-      <Title>
-        {item.name}
-      </Title>
-      {item.artists &&
-        <Artist>
-          {[...item.artists.map(artist => artist.name)].join(', ')}
-        </Artist>}
-    </Wrapper>
+    <Link to={linkTo}>
+      <Wrapper
+        onClick={() => clickHandler(...clickHandlerParams)}
+      >
+        <ItemCover
+          img={cover}
+        />
+        <Title
+          titleCentered={titleCentered}
+        >
+          {title}
+        </Title>
+        {/* {item.artists &&
+          <Artist>
+            {[...item.artists.map(artist => artist.name)].join(', ')}
+          </Artist>} */}
+        {
+          subtitle &&
+            <Subtitle>
+              {subtitle.length < 45 ? subtitle : `${subtitle.slice(0, 45)}...`}
+            </Subtitle>
+        }
+      </Wrapper>
+    </Link>
   )
 }
 
@@ -77,36 +47,48 @@ const Wrapper = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  position: relative;
 `
 
-const Artist = styled.h4`
+const Subtitle = styled.h4`
   color: #989898;
   font-size: 1.1rem;
   font-weight: 400;
   margin: 0;
+  overflow-wrap: break-word;
+  max-width: 150px;
 `
 
 const Title = styled.h3`
   color: #fff;
-  font-size: 1.2rem;
-  font-weight: 300;
+  font-size: 1.4rem;
+  font-weight: 600;
   margin: 6px 0 4px;
+
+  ${({ titleCentered }) => {
+    if (titleCentered) {
+      return (
+        css`
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          bottom: 26px;
+          font-size: 1.4rem;
+        `
+      )
+    }
+  }}
 `
 
-const mapDispatchToProps = {
-  fetchAlbumTracks,
-  fetchCategoryPlaylists,
-  fetchPlaylistTracks,
-  playTrack
-}
-
 GridItem.propTypes = {
-  displayedContent: PropTypes.string,
-  fetchAlbumTracks: PropTypes.func,
-  fetchCategoryPlaylists: PropTypes.func,
-  fetchPlaylistTracks: PropTypes.func,
+  clickHandler: PropTypes.func,
+  clickHandlerParams: PropTypes.array,
+  cover: PropTypes.string,
   item: PropTypes.object,
-  playTrack: PropTypes.func
+  linkTo: PropTypes.string,
+  title: PropTypes.string,
+  titleCentered: PropTypes.bool,
+  subtitle: PropTypes.string
 }
 
-export default connect(null, mapDispatchToProps)(GridItem)
+export default GridItem

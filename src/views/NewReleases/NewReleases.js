@@ -4,14 +4,10 @@ import PropTypes from 'prop-types'
 
 import Grid from 'components/Grid/Grid'
 
-const Categories = ({
+const NewReleases = ({
   items
 }) => (
-  <>
-    <Grid
-      items={items}
-    />
-  </>
+  <p>NewReleases</p>
 )
 
 const mapStateToProps = (state) => {
@@ -21,8 +17,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-Categories.propTypes = {
+NewReleases.propTypes = {
   items: PropTypes.array
 }
 
-export default connect(mapStateToProps)(Categories)
+export default connect(mapStateToProps)(NewReleases)

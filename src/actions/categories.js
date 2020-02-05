@@ -17,7 +17,12 @@ export const fetchCategories = () => dispatch => {
   return axios
     .get(
       'browse/categories',
-      { params: { limit: 50 } }
+      {
+        params: {
+          limit: 50,
+          locale: 'en-US'
+        }
+      }
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload })
@@ -36,7 +41,12 @@ export const fetchCategoryPlaylists = (categoryId, categoryName) => dispatch => 
   return axios
     .get(
       `browse/categories/${categoryId}/playlists`,
-      { params: { limit: 50 } }
+      {
+        params: {
+          limit: 50,
+          country: 'US'
+        }
+      }
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORY_PLAYLISTS_SUCCESS, payload: { ...payload, categoryName } })
