@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-// import { fetchCategoryPlaylists } from 'actions/categories'
+import { fetchPlaylist } from 'actions/playlist'
 
 import GridItem from 'components/Grid/GridItem'
 
 const CategoryPlaylists = ({
+  fetchPlaylist,
   items,
   playlistName
 }) => (
@@ -18,14 +19,13 @@ const CategoryPlaylists = ({
         items &&
         items.map(item => (
           <GridItem
-            // clickHandler={fetchCategoryPlaylists}
-            // clickHandlerParams={[item.id, item.name]}
+            clickHandler={fetchPlaylist}
+            clickHandlerParams={[item.id]}
             cover={item.images[0].url}
             item={item}
             key={item.id}
             linkTo={`/playlist/${item.id}`}
             title={item.name}
-            // subtitle={item.description}
             subtitle={item.description}
           />
         ))
@@ -51,14 +51,19 @@ const Header = styled.h1`
   font-size: 3.8rem;
 `
 
+const mapDispatchToProps = {
+  fetchPlaylist
+}
+
 const mapStateToProps = (state) => ({
   items: state.category.items,
   playlistName: state.category.name
 })
 
 CategoryPlaylists.propTypes = {
+  fetchPlaylist: PropTypes.func,
   items: PropTypes.array,
   playlistName: PropTypes.string
 }
 
-export default connect(mapStateToProps)(CategoryPlaylists)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPlaylists)

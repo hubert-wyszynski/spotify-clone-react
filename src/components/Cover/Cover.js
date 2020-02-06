@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import Spinner from 'components/Spinner/Spinner'
 
-const ItemCover = ({
-  img
+const Cover = ({
+  img,
+  size
 }) => {
   const [isImageLoaded, setImageState] = useState(false)
 
@@ -19,6 +20,7 @@ const ItemCover = ({
         src={img}
         onLoad={() => handleImageLoad()}
         loaded={isImageLoaded}
+        size={size}
       />
       {
         !isImageLoaded &&
@@ -39,6 +41,13 @@ const Image = styled.img`
   &:hover {
     filter: brightness(0.3);
   }
+
+  ${({ size }) => (
+    size && css`
+      width: ${size}px;
+      height: ${size}px;
+    `
+  )}
 `
 
 const SpinnerWrapper = styled.div`
@@ -52,8 +61,9 @@ const SpinnerWrapper = styled.div`
   position: relative;
 `
 
-ItemCover.propTypes = {
-  img: PropTypes.string
+Cover.propTypes = {
+  img: PropTypes.string,
+  size: PropTypes.number
 }
 
-export default ItemCover
+export default Cover

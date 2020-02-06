@@ -7,8 +7,11 @@ import { getUser } from 'actions/user'
 
 class User extends React.Component {
   componentDidMount () {
-    const { getUser } = this.props
-    getUser()
+    const { getUser, token } = this.props
+
+    if (token) {
+      getUser()
+    }
   }
 
   render () {
@@ -50,8 +53,9 @@ const Photo = styled.img`
 `
 
 const mapStateToProps = (state) => {
-  const { user } = state
+  const { user, token } = state
   return {
+    token: token.token,
     user: user.user
   }
 }
@@ -62,7 +66,8 @@ const mapDispatchToProps = {
 
 User.propTypes = {
   getUser: PropTypes.func,
-  user: PropTypes.object
+  user: PropTypes.object,
+  token: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

@@ -20,7 +20,8 @@ export const fetchCategories = () => dispatch => {
       {
         params: {
           limit: 50,
-          locale: 'en-US'
+          // locale: 'en-US'
+          locale: 'pl-PL'
         }
       }
     )
@@ -44,7 +45,8 @@ export const fetchCategoryPlaylists = (categoryId, categoryName) => dispatch => 
       {
         params: {
           limit: 50,
-          country: 'US'
+          // country: 'US'
+          country: 'PL'
         }
       }
     )

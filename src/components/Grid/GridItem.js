@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import ItemCover from 'components/Grid/ItemCover'
+import Cover from 'components/Cover/Cover'
 
 const GridItem = ({
   clickHandler,
@@ -20,7 +20,7 @@ const GridItem = ({
       <Wrapper
         onClick={() => clickHandler(...clickHandlerParams)}
       >
-        <ItemCover
+        <Cover
           img={cover}
         />
         <Title
