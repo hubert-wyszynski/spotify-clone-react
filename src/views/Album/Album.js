@@ -1,18 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import Cover from 'components/Cover/Cover'
 import List from 'components/List/List'
 
-const Playlist = ({
-  title,
-  description,
-  tracks,
+const Album = ({
+  albumType,
+  artists,
   images,
-  followers,
-  owner
+  name,
+  tracks
 }) => (
   <>
     <HeaderWrapper>
@@ -21,27 +20,21 @@ const Playlist = ({
           <Cover size={200} img={images[0].url} />
       }
       <InfoWrapper>
-        <Label>
-          PLAYLIST
+        <Label capitalize>
+          {albumType}
         </Label>
         <Title>
-          {title}
+          {name}
         </Title>
         {
-          description &&
+          artists &&
             <Description>
-              {description}
+              By <Owner>{[...artists.map(artist => artist.name)].join(', ')}</Owner>
             </Description>
         }
-        <Description>
-          Created by <Owner>{owner}</Owner>
-        </Description>
         <Stats>
           <Label>
             {tracks.length} songs
-          </Label>
-          <Label>
-            Followers: {followers}
           </Label>
         </Stats>
       </InfoWrapper>
@@ -51,23 +44,22 @@ const Playlist = ({
 )
 
 const mapStateToProps = (state) => {
-  const { title, description, tracks, images, followers, owner } = state.playlist
+  const { albumType, artists, images, name, tracks } = state.album
 
   return {
-    title, description, tracks, images, followers, owner
+    albumType, artists, images, name, tracks
   }
 }
 
-Playlist.propTypes = {
-  description: PropTypes.string,
-  followers: PropTypes.number,
+Album.propTypes = {
+  albumType: PropTypes.string,
+  artists: PropTypes.array,
   images: PropTypes.array,
-  owner: PropTypes.string,
-  title: PropTypes.string,
+  name: PropTypes.string,
   tracks: PropTypes.array
 }
 
-export default connect(mapStateToProps)(Playlist)
+export default connect(mapStateToProps)(Album)
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -82,6 +74,12 @@ const Label = styled.p`
   font-size: 1.2rem;
   font-weight: 200;
   color: #fff;
+  
+  ${({ capitalize }) => (
+    capitalize && css`
+      text-transform: capitalize
+    `
+  )}
 `
 
 const Title = styled.h3`

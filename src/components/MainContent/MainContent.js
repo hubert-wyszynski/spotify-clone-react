@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Switch, Route } from 'react-router-dom'
 
+import Album from 'views/Album/Album'
 import Browse from 'views/Browse/Browse'
 import CategoryPlaylists from 'views/CategoryPlaylists/CategoryPlaylists'
 import NewReleases from 'views/NewReleases/NewReleases'
@@ -14,6 +15,7 @@ const MainContent = () => (
       <Route path='/browse/:id' component={CategoryPlaylists} />
       <Route path='/browse' component={Browse} />
       <Route path='/playlist/:id' component={Playlist} />
+      <Route path='/album/:id' component={Album} />
     </Switch>
   </MainContentWrapper>
 )
