@@ -7,6 +7,7 @@ import loaders from 'reducers/loaders'
 import player from 'reducers/player'
 import playlist from 'reducers/playlist'
 import releases from 'reducers/releases'
+import searchResults from 'reducers/searchResults'
 import token from 'reducers/token'
 import user from 'reducers/user'
 
@@ -18,6 +19,7 @@ export default combineReducers({
   player,
   playlist,
   releases,
+  searchResults,
   token,
   user
 })

@@ -1,21 +1,27 @@
-import React , { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import styled from 'styled-components'
-import { searchForItems } from '../../actions/search'
 
 const Search = ({
-  searchForItems
+  history
 }) => {
   const [query, setQuery] = useState('')
-
-  useEffect(() => {
-    if (query !== '') searchForItems(query)
-  }, [query])
+  let [delayTimer, setDelayTimer] = useState()
 
   const handleInputChange = (e) => {
-    setQuery(e.target.value)
+    const inputVal = e.target.value
+
+    setQuery(inputVal)
+
+    clearTimeout(delayTimer)
+
+    delayTimer = setDelayTimer(
+      setTimeout(function () {
+        history.push(`/search?q=${inputVal}`)
+      }, 1000)
+    )
   }
 
   const clearInput = () => {
@@ -92,12 +98,8 @@ const RemoveIcon = styled.i`
   right: 6px;
 `
 
-const mapDispatchToProps = {
-  searchForItems
-}
-
 Search.propTypes = {
-  searchForItems: PropTypes.func
+  history: PropTypes.object
 }
 
-export default connect(null, mapDispatchToProps)(Search)
+export default withRouter(Search)

@@ -7,6 +7,7 @@ import Browse from 'views/Browse/Browse'
 import CategoryPlaylists from 'views/CategoryPlaylists/CategoryPlaylists'
 import NewReleases from 'views/NewReleases/NewReleases'
 import Playlist from 'views/Playlist/Playlist'
+import SearchResults from 'views/SearchResults/SearchResults'
 
 const MainContent = () => (
   <MainContentWrapper>
@@ -16,6 +17,7 @@ const MainContent = () => (
       <Route path='/browse' component={Browse} />
       <Route path='/playlist/:id' component={Playlist} />
       <Route path='/album/:id' component={Album} />
+      <Route path='/search' component={SearchResults} />
     </Switch>
   </MainContentWrapper>
 )
