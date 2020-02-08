@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom'
 import Cover from 'components/Cover/Cover'
 
 const GridItem = ({
-  clickHandler,
-  clickHandlerParams,
   cover,
   item,
   linkTo,
@@ -17,9 +15,7 @@ const GridItem = ({
 }) => {
   return (
     <Link to={linkTo}>
-      <Wrapper
-        onClick={() => clickHandler(...clickHandlerParams)}
-      >
+      <Wrapper>
         <Cover
           img={cover}
         />
@@ -28,10 +24,6 @@ const GridItem = ({
         >
           {title}
         </Title>
-        {/* {item.artists &&
-          <Artist>
-            {[...item.artists.map(artist => artist.name)].join(', ')}
-          </Artist>} */}
         {
           subtitle &&
             <Subtitle>
@@ -64,6 +56,7 @@ const Title = styled.h3`
   font-size: 1.4rem;
   font-weight: 600;
   margin: 6px 0 4px;
+  word-break: break-word;
 
   ${({ titleCentered }) => {
     if (titleCentered) {
@@ -81,8 +74,6 @@ const Title = styled.h3`
 `
 
 GridItem.propTypes = {
-  clickHandler: PropTypes.func,
-  clickHandlerParams: PropTypes.array,
   cover: PropTypes.string,
   item: PropTypes.object,
   linkTo: PropTypes.string,

@@ -26,6 +26,7 @@ const Search = ({
 
   const clearInput = () => {
     setQuery('')
+    history.push('/browse')
   }
 
   return (

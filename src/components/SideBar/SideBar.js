@@ -1,34 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+
 import styled from 'styled-components'
 
 import SideBarItem from './SideBarItem'
 
-import { fetchCategories } from 'actions/categories'
-import { fetchNewReleases } from 'actions/releases'
-
-const SideBar = ({
-  fetchCategories,
-  fetchNewReleases
-}) => {
-  return (
-    <SideBarWrapper>
-      <NavItemsWrapper>
-        <SideBarItem
-          label='Browse'
-          linkTo='/browse'
-          clickHandler={fetchCategories}
-        />
-        <SideBarItem
-          label='New releases'
-          linkTo='/releases'
-          clickHandler={fetchNewReleases}
-        />
-      </NavItemsWrapper>
-    </SideBarWrapper>
-  )
-}
+const SideBar = () => (
+  <SideBarWrapper>
+    <NavItemsWrapper>
+      <SideBarItem
+        label='Browse'
+        linkTo='/browse'
+      />
+      <SideBarItem
+        label='New releases'
+        linkTo='/releases'
+      />
+    </NavItemsWrapper>
+  </SideBarWrapper>
+)
 
 const SideBarWrapper = styled.div`
   background-color: #151515;
@@ -43,14 +32,4 @@ const NavItemsWrapper = styled.div`
   flex-direction: column;
 `
 
-const mapDispatchToProps = {
-  fetchCategories,
-  fetchNewReleases
-}
-
-SideBar.propTypes = {
-  fetchCategories: PropTypes.func,
-  fetchNewReleases: PropTypes.func
-}
-
-export default connect(null, mapDispatchToProps)(SideBar)
+export default SideBar

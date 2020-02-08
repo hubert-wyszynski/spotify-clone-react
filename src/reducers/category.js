@@ -3,8 +3,7 @@ import {
 } from 'actions/categories'
 
 const initialState = {
-  items: null,
-  name: null
+  items: null
 }
 
 const categories = (state = initialState, action) => {
@@ -12,8 +11,7 @@ const categories = (state = initialState, action) => {
     case FETCH_CATEGORY_PLAYLISTS_SUCCESS:
       return {
         ...state,
-        items: action.payload.data.playlists.items,
-        name: action.payload.categoryName
+        items: action.payload.data.playlists.items
       }
     default:
       return state

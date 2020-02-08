@@ -44,7 +44,7 @@ const SearchResults = ({
                     cover={item.album.images[0].url}
                     item={item}
                     key={item.id}
-                    linkTo={`album/${item.id}`}
+                    linkTo={`album/${item.album.id}`}
                     title={item.name}
                   />
                 ))
@@ -59,7 +59,7 @@ const SearchResults = ({
                     cover={item.images[0].url}
                     item={item}
                     key={item.id}
-                    linkTo={`album/${item.id}`}
+                    linkTo={`playlist/${item.id}`}
                     title={item.name}
                   />
                 ))

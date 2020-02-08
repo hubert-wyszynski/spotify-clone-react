@@ -1,38 +1,42 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { fetchPlaylist } from 'actions/playlist'
+import { fetchCategoryPlaylists } from 'actions/categories'
 
 import GridItem from 'components/Grid/GridItem'
 
 const CategoryPlaylists = ({
-  fetchPlaylist,
+  fetchCategoryPlaylists,
   items,
-  playlistName
-}) => (
-  <>
-    <Header>{playlistName}</Header>
-    <ItemsWrapper>
-      {
-        items &&
-        items.map(item => (
-          <GridItem
-            clickHandler={fetchPlaylist}
-            clickHandlerParams={[item.id]}
-            cover={item.images[0].url}
-            item={item}
-            key={item.id}
-            linkTo={`/playlist/${item.id}`}
-            title={item.name}
-            subtitle={item.description}
-          />
-        ))
-      }
-    </ItemsWrapper>
-  </>
-)
+  match
+}) => {
+  useEffect(() => {
+    fetchCategoryPlaylists(match.params.id)
+  }, [match.url])
+
+  return (
+    <>
+      <Header>Playlist name</Header>
+      <ItemsWrapper>
+        {
+          items &&
+          items.map(item => (
+            <GridItem
+              cover={item.images[0].url}
+              item={item}
+              key={item.id}
+              linkTo={`/playlist/${item.id}`}
+              title={item.name}
+              subtitle={item.description}
+            />
+          ))
+        }
+      </ItemsWrapper>
+    </>
+  )
+}
 
 const ItemsWrapper = styled.div`
   display: grid;
@@ -52,18 +56,17 @@ const Header = styled.h1`
 `
 
 const mapDispatchToProps = {
-  fetchPlaylist
+  fetchCategoryPlaylists
 }
 
 const mapStateToProps = (state) => ({
-  items: state.category.items,
-  playlistName: state.category.name
+  items: state.category.items
 })
 
 CategoryPlaylists.propTypes = {
-  fetchPlaylist: PropTypes.func,
+  fetchCategoryPlaylists: PropTypes.func,
   items: PropTypes.array,
-  playlistName: PropTypes.string
+  match: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryPlaylists)

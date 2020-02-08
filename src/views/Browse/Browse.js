@@ -1,37 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { fetchCategoryPlaylists } from 'actions/categories'
+import { fetchCategories } from 'actions/categories'
 
 import GridItem from 'components/Grid/GridItem'
 
 const Browse = ({
-  fetchCategoryPlaylists,
-  items
-}) => (
-  <>
-    <Header>Browse</Header>
-    <Subheader>Genres & moods</Subheader>
-    <ItemsWrapper>
-      {
-        items.map(item => (
-          <GridItem
-            clickHandler={fetchCategoryPlaylists}
-            clickHandlerParams={[item.id, item.name]}
-            cover={item.icons[0].url}
-            item={item}
-            key={item.id}
-            linkTo={`browse/${item.id}`}
-            titleCentered
-            title={item.name}
-          />
-        ))
-      }
-    </ItemsWrapper>
-  </>
-)
+  fetchCategories,
+  items,
+  match
+}) => {
+  useEffect(() => {
+    fetchCategories()
+  }, [match.url])
+
+  return (
+    <>
+      <Header>Browse</Header>
+      <Subheader>Genres & moods</Subheader>
+      <ItemsWrapper>
+        {
+          items &&
+          items.map(item => (
+            <GridItem
+              cover={item.icons[0].url}
+              item={item}
+              key={item.id}
+              linkTo={`browse/${item.id}`}
+              titleCentered
+              title={item.name}
+            />
+          ))
+        }
+      </ItemsWrapper>
+    </>
+  )
+}
 
 const ItemsWrapper = styled.div`
   display: grid;
@@ -57,7 +63,7 @@ const Subheader = styled.h2`
 `
 
 const mapDispatchToProps = {
-  fetchCategoryPlaylists
+  fetchCategories
 }
 
 const mapStateToProps = (state) => {
@@ -68,8 +74,9 @@ const mapStateToProps = (state) => {
 }
 
 Browse.propTypes = {
-  fetchCategoryPlaylists: PropTypes.func,
-  items: PropTypes.array
+  fetchCategories: PropTypes.func,
+  items: PropTypes.array,
+  match: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browse)

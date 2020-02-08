@@ -9,26 +9,6 @@ import {
 
 export const FETCH_PLAYLIST_SUCCESS = 'FETCH_PLAYLIST_SUCCESS'
 
-// export const FETCH_PLAYLIST_TRACKS_SUCCESS = 'FETCH_PLAYLIST_TRACKS_SUCCESS'
-
-// export const fetchPlaylistTracks = (playlistId, playlistName) => dispatch => {
-//   const axios = createAxiosInstance(store)
-//   dispatch({ type: ENABLE_LOADING_STATE })
-
-//   return axios
-//     .get(
-//       `playlists/${playlistId}/tracks`
-//     )
-//     .then(payload => {
-//       dispatch({ type: FETCH_PLAYLIST_TRACKS_SUCCESS, payload: { ...payload, playlistName } })
-//       dispatch({ type: DISABLE_LOADING_STATE })
-//     })
-//     .catch(err => {
-//       console.log(err)
-//       dispatch({ type: DISABLE_LOADING_STATE })
-//     })
-// }
-
 export const fetchPlaylist = (playlistId) => dispatch => {
   const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })

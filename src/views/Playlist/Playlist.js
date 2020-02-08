@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+import { fetchPlaylist } from 'actions/playlist'
 
 import Cover from 'components/Cover/Cover'
 import List from 'components/List/List'
@@ -12,43 +14,50 @@ const Playlist = ({
   tracks,
   images,
   followers,
-  owner
-}) => (
-  <>
-    <HeaderWrapper>
-      {
-        images &&
-          <Cover size={200} img={images[0].url} />
-      }
-      <InfoWrapper>
-        <Label>
-          PLAYLIST
-        </Label>
-        <Title>
-          {title}
-        </Title>
+  owner,
+  match,
+  fetchPlaylist
+}) => {
+  useEffect(() => {
+    fetchPlaylist(match.params.id)
+  }, [match.url])
+  return (
+    <>
+      <HeaderWrapper>
         {
-          description &&
-            <Description>
-              {description}
-            </Description>
+          images &&
+            <Cover size={200} img={images[0].url} />
         }
-        <Description>
-          Created by <Owner>{owner}</Owner>
-        </Description>
-        <Stats>
+        <InfoWrapper>
           <Label>
-            {tracks.length} songs
+            PLAYLIST
           </Label>
-          <Label>
-            Followers: {followers}
-          </Label>
-        </Stats>
-      </InfoWrapper>
-    </HeaderWrapper>
-    <List items={tracks} />
-  </>
-)
+          <Title>
+            {title}
+          </Title>
+          {
+            description &&
+              <Description>
+                {description}
+              </Description>
+          }
+          <Description>
+            Created by <Owner>{owner}</Owner>
+          </Description>
+          <Stats>
+            <Label>
+              {tracks.length} songs
+            </Label>
+            <Label>
+              Followers: {followers}
+            </Label>
+          </Stats>
+        </InfoWrapper>
+      </HeaderWrapper>
+      <List items={tracks} />
+    </>
+  )
+}
 
 const mapStateToProps = (state) => {
   const { title, description, tracks, images, followers, owner } = state.playlist
@@ -58,16 +67,22 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = {
+  fetchPlaylist
+}
+
 Playlist.propTypes = {
   description: PropTypes.string,
+  fetchPlaylist: PropTypes.func,
   followers: PropTypes.number,
   images: PropTypes.array,
   owner: PropTypes.string,
   title: PropTypes.string,
-  tracks: PropTypes.array
+  tracks: PropTypes.array,
+  match: PropTypes.object
 }
 
-export default connect(mapStateToProps)(Playlist)
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist)
 
 const HeaderWrapper = styled.div`
   display: flex;

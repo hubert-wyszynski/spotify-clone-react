@@ -1,38 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import GridItem from 'components/Grid/GridItem'
 
-import { fetchAlbum } from 'actions/album'
+import { fetchNewReleases } from 'actions/releases'
 
 const NewReleases = ({
-  fetchAlbum,
-  items
-}) => (
-  <>
-    <Header>New releases</Header>
-    <Subheader>The best new releases</Subheader>
-    <ItemsWrapper>
-      {
-        items &&
-        items.map(item => (
-          <GridItem
-            clickHandler={fetchAlbum}
-            clickHandlerParams={[item.id]}
-            cover={item.images[0].url}
-            item={item}
-            key={item.id}
-            linkTo={`album/${item.id}`}
-            title={item.name}
-            subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
-          />
-        ))
-      }
-    </ItemsWrapper>
-  </>
-)
+  fetchNewReleases,
+  items,
+  match
+}) => {
+  useEffect(() => {
+    fetchNewReleases()
+  }, [match.url])
+
+  return (
+    <>
+      <Header>New releases</Header>
+      <Subheader>The best new releases</Subheader>
+      <ItemsWrapper>
+        {
+          items &&
+          items.map(item => (
+            <GridItem
+              cover={item.images[0].url}
+              item={item}
+              key={item.id}
+              linkTo={`album/${item.id}`}
+              title={item.name}
+              subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
+            />
+          ))
+        }
+      </ItemsWrapper>
+    </>
+  )
+}
 
 const ItemsWrapper = styled.div`
   display: grid;
@@ -58,7 +63,7 @@ const Subheader = styled.h2`
 `
 
 const mapDispatchToProps = {
-  fetchAlbum
+  fetchNewReleases
 }
 
 const mapStateToProps = (state) => {
@@ -69,8 +74,9 @@ const mapStateToProps = (state) => {
 }
 
 NewReleases.propTypes = {
-  fetchAlbum: PropTypes.func,
-  items: PropTypes.array
+  fetchNewReleases: PropTypes.func,
+  items: PropTypes.array,
+  match: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewReleases)

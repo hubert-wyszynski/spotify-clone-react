@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
+
+import { fetchAlbum } from 'actions/album'
 
 import Cover from 'components/Cover/Cover'
 import List from 'components/List/List'
@@ -9,39 +11,51 @@ import List from 'components/List/List'
 const Album = ({
   albumType,
   artists,
+  fetchAlbum,
   images,
+  match,
   name,
   tracks
-}) => (
-  <>
-    <HeaderWrapper>
-      {
-        images &&
-          <Cover size={200} img={images[0].url} />
-      }
-      <InfoWrapper>
-        <Label capitalize>
-          {albumType}
-        </Label>
-        <Title>
-          {name}
-        </Title>
+}) => {
+  useEffect(() => {
+    fetchAlbum(match.params.id)
+  }, [match.url])
+
+  return (
+    <>
+      <HeaderWrapper>
         {
-          artists &&
-            <Description>
-              By <Owner>{[...artists.map(artist => artist.name)].join(', ')}</Owner>
-            </Description>
+          images &&
+            <Cover size={200} img={images[0].url} />
         }
-        <Stats>
-          <Label>
-            {tracks.length} songs
+        <InfoWrapper>
+          <Label capitalize>
+            {albumType}
           </Label>
-        </Stats>
-      </InfoWrapper>
-    </HeaderWrapper>
-    <List items={tracks} />
-  </>
-)
+          <Title>
+            {name}
+          </Title>
+          {
+            artists &&
+              <Description>
+                By <Owner>{[...artists.map(artist => artist.name)].join(', ')}</Owner>
+              </Description>
+          }
+          <Stats>
+            <Label>
+              {tracks.length} songs
+            </Label>
+          </Stats>
+        </InfoWrapper>
+      </HeaderWrapper>
+      <List items={tracks} />
+    </>
+  )
+}
+
+const mapDispatchToProps = {
+  fetchAlbum
+}
 
 const mapStateToProps = (state) => {
   const { albumType, artists, images, name, tracks } = state.album
@@ -54,12 +68,14 @@ const mapStateToProps = (state) => {
 Album.propTypes = {
   albumType: PropTypes.string,
   artists: PropTypes.array,
+  fetchAlbum: PropTypes.func,
   images: PropTypes.array,
   name: PropTypes.string,
+  match: PropTypes.object,
   tracks: PropTypes.array
 }
 
-export default connect(mapStateToProps)(Album)
+export default connect(mapStateToProps, mapDispatchToProps)(Album)
 
 const HeaderWrapper = styled.div`
   display: flex;

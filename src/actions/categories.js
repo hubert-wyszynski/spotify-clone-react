@@ -35,7 +35,7 @@ export const fetchCategories = () => dispatch => {
     })
 }
 
-export const fetchCategoryPlaylists = (categoryId, categoryName) => dispatch => {
+export const fetchCategoryPlaylists = (categoryId) => dispatch => {
   const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
@@ -51,7 +51,7 @@ export const fetchCategoryPlaylists = (categoryId, categoryName) => dispatch => 
       }
     )
     .then(payload => {
-      dispatch({ type: FETCH_CATEGORY_PLAYLISTS_SUCCESS, payload: { ...payload, categoryName } })
+      dispatch({ type: FETCH_CATEGORY_PLAYLISTS_SUCCESS, payload })
       dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {
