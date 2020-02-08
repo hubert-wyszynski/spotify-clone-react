@@ -5,26 +5,21 @@ import store from 'store/index'
 import {
   ENABLE_LOADING_STATE,
   DISABLE_LOADING_STATE
-} from 'actions/loaders'
+} from 'store/actions/loaders'
 
-export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
+export const FETCH_NEW_RELEASES_SUCCESS = 'FETCH_NEW_RELEASES_SUCCESS'
 
-export const searchForItems = (query) => dispatch => {
+export const fetchNewReleases = () => dispatch => {
   const axios = createAxiosInstance(store)
   dispatch({ type: ENABLE_LOADING_STATE })
 
   return axios
     .get(
-      'search',
-      {
-        params: {
-          q: query,
-          type: 'album,playlist,track'
-        }
-      }
+      'browse/new-releases',
+      { params: { limit: 50, country: 'PL' } }
     )
     .then(payload => {
-      dispatch({ type: SEARCH_SUCCESS, payload })
+      dispatch({ type: FETCH_NEW_RELEASES_SUCCESS, payload })
       dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {

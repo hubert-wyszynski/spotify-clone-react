@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import { clearPlayer, togglePlayer } from 'actions/player'
+import { clearPlayer, togglePlayer } from 'store/actions/player'
 
 const Player = ({
   clearPlayer,

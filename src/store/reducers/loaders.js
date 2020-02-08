@@ -1,7 +1,7 @@
 import {
   DISABLE_LOADING_STATE,
   ENABLE_LOADING_STATE
-} from 'actions/loaders'
+} from 'store/actions/loaders'
 
 const initialState = {
   isDataLoading: false

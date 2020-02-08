@@ -1,6 +1,6 @@
 import {
   FETCH_CATEGORIES_SUCCESS
-} from 'actions/categories'
+} from 'store/actions/categories'
 
 const initialState = {
   items: []

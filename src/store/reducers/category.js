@@ -1,6 +1,6 @@
 import {
   FETCH_CATEGORY_PLAYLISTS_SUCCESS
-} from 'actions/categories'
+} from 'store/actions/categories'
 
 const initialState = {
   items: null

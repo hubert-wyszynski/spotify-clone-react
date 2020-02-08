@@ -5,7 +5,7 @@ import store from 'store/index'
 import {
   ENABLE_LOADING_STATE,
   DISABLE_LOADING_STATE
-} from 'actions/loaders'
+} from 'store/actions/loaders'
 
 export const FETCH_PLAYLIST_SUCCESS = 'FETCH_PLAYLIST_SUCCESS'
 

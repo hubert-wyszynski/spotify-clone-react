@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { fetchCategories } from 'actions/categories'
+import { fetchCategories } from 'store/actions/categories'
 
 import GridItem from 'components/Grid/GridItem'
 

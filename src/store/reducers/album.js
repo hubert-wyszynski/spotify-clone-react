@@ -1,4 +1,4 @@
-import { FETCH_ALBUM_SUCCESS } from 'actions/album'
+import { FETCH_ALBUM_SUCCESS } from 'store/actions/album'
 
 const initialState = {
   albumType: null,

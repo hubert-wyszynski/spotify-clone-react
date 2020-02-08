@@ -1,7 +1,7 @@
-import { FETCH_ALBUM_TRACKS_SUCCESS } from 'actions/album'
-import { FETCH_PLAYLIST_TRACKS_SUCCESS } from 'actions/playlist'
-import { FETCH_NEW_RELEASES_SUCCESS } from 'actions/releases'
-import { SEARCH_SUCCESS } from 'actions/search'
+import { FETCH_ALBUM_TRACKS_SUCCESS } from 'store/actions/album'
+import { FETCH_PLAYLIST_TRACKS_SUCCESS } from 'store/actions/playlist'
+import { FETCH_NEW_RELEASES_SUCCESS } from 'store/actions/releases'
+import { SEARCH_SUCCESS } from 'store/actions/search'
 
 const initialState = {
   header: null,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 
-import { playTrack } from 'actions/player'
+import { playTrack } from 'store/actions/player'
 
 const ListItem = ({
   item,

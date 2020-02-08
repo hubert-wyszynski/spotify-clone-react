@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { fetchPlaylist } from 'actions/playlist'
+import { fetchPlaylist } from 'store/actions/playlist'
 
 import Cover from 'components/Cover/Cover'
 import List from 'components/List/List'

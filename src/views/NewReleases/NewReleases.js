@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import GridItem from 'components/Grid/GridItem'
 
-import { fetchNewReleases } from 'actions/releases'
+import { fetchNewReleases } from 'store/actions/releases'
 
 const NewReleases = ({
   fetchNewReleases,

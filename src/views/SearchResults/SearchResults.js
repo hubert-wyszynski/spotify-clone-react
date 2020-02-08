@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { searchForItems } from 'actions/search'
+import { searchForItems } from 'store/actions/search'
 import styled from 'styled-components'
 
 import GridItem from 'components/Grid/GridItem'
@@ -56,7 +56,7 @@ const SearchResults = ({
               {
                 data.playlists.items.map(item => (
                   <GridItem
-                    cover={item.images[0].url}
+                    cover={item.images.length ? item.images[0].url : null}
                     item={item}
                     key={item.id}
                     linkTo={`playlist/${item.id}`}

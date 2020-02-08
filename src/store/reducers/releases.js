@@ -1,4 +1,4 @@
-import { FETCH_NEW_RELEASES_SUCCESS } from 'actions/releases'
+import { FETCH_NEW_RELEASES_SUCCESS } from 'store/actions/releases'
 
 const initialState = {
   items: null

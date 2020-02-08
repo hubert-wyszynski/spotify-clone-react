@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import { fetchAlbum } from 'actions/album'
+import { fetchAlbum } from 'store/actions/album'
 
 import Cover from 'components/Cover/Cover'
 import List from 'components/List/List'

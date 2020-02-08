@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { getUser } from 'actions/user'
+import { getUser } from 'store/actions/user'
 
 class User extends React.Component {
   componentDidMount () {

@@ -1,4 +1,4 @@
-import { FETCH_PLAYLIST_SUCCESS } from 'actions/playlist'
+import { FETCH_PLAYLIST_SUCCESS } from 'store/actions/playlist'
 
 const initialState = {
   title: null,

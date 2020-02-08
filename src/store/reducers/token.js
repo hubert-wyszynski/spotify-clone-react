@@ -1,4 +1,4 @@
-import { SET_TOKEN } from 'actions/token'
+import { SET_TOKEN } from 'store/actions/token'
 
 const token = (state = {}, action) => {
   switch (action.type) {

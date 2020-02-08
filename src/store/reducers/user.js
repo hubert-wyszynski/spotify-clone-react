@@ -1,4 +1,4 @@
-import { GET_USER_SUCCESS } from 'actions/user'
+import { GET_USER_SUCCESS } from 'store/actions/user'
 
 const initial = {
   user: null

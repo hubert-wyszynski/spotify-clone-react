@@ -7,7 +7,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Login from 'views/Login/Login'
 import AppWrapper from 'views/AppWrapper/AppWrapper'
 
-import { setToken } from 'actions/token'
+import { setToken } from 'store/actions/token'
 
 const hash = window.location.hash
   .substring(1)
@@ -40,7 +40,7 @@ class Root extends React.Component {
           </Switch>
           {
             this.props.token ? (
-              <Redirect to='/' />
+              <Redirect to='/browse' />
             ) : (
               <Redirect to='/login' />
             )

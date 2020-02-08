@@ -1,6 +1,6 @@
 import {
   SEARCH_SUCCESS
-} from 'actions/search'
+} from 'store/actions/search'
 
 const initialState = {
   data: null

@@ -2,7 +2,7 @@ import {
   PLAY_TRACK,
   CLEAR_PLAYER,
   TOGGLE_PLAYER
-} from 'actions/player'
+} from 'store/actions/player'
 
 const initialState = {
   isPlaying: false,
