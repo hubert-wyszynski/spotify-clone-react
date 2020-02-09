@@ -2,16 +2,12 @@ import { createAxiosInstance } from 'utils/axios'
 
 import store from 'store/index'
 
-import {
-  ENABLE_LOADING_STATE,
-  DISABLE_LOADING_STATE
-} from 'store/actions/loaders'
-
+export const SEARCH = 'SEARCH'
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
 
 export const searchForItems = (query) => dispatch => {
   const axios = createAxiosInstance(store)
-  dispatch({ type: ENABLE_LOADING_STATE })
+  dispatch({ type: SEARCH })
 
   return axios
     .get(
@@ -25,10 +21,8 @@ export const searchForItems = (query) => dispatch => {
     )
     .then(payload => {
       dispatch({ type: SEARCH_SUCCESS, payload })
-      dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {
       console.log(err)
-      dispatch({ type: DISABLE_LOADING_STATE })
     })
 }

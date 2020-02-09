@@ -2,17 +2,15 @@ import { createAxiosInstance } from 'utils/axios'
 
 import store from 'store/index'
 
-import {
-  ENABLE_LOADING_STATE,
-  DISABLE_LOADING_STATE
-} from 'store/actions/loaders'
-
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS'
+
+export const FETCH_CATEGORY_PLAYLISTS = 'FETCH_CATEGORY_PLAYLISTS'
 export const FETCH_CATEGORY_PLAYLISTS_SUCCESS = 'FETCH_CATEGORY_PLAYLISTS_SUCCESS'
 
 export const fetchCategories = () => dispatch => {
   const axios = createAxiosInstance(store)
-  dispatch({ type: ENABLE_LOADING_STATE })
+  dispatch({ type: FETCH_CATEGORIES })
 
   return axios
     .get(
@@ -26,17 +24,15 @@ export const fetchCategories = () => dispatch => {
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload })
-      dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {
       console.log(err)
-      dispatch({ type: DISABLE_LOADING_STATE })
     })
 }
 
 export const fetchCategoryPlaylists = (categoryId) => dispatch => {
   const axios = createAxiosInstance(store)
-  dispatch({ type: ENABLE_LOADING_STATE })
+  dispatch({ type: FETCH_CATEGORY_PLAYLISTS })
 
   return axios
     .get(
@@ -50,10 +46,8 @@ export const fetchCategoryPlaylists = (categoryId) => dispatch => {
     )
     .then(payload => {
       dispatch({ type: FETCH_CATEGORY_PLAYLISTS_SUCCESS, payload })
-      dispatch({ type: DISABLE_LOADING_STATE })
     })
     .catch(err => {
       console.log(err)
-      dispatch({ type: DISABLE_LOADING_STATE })
     })
 }

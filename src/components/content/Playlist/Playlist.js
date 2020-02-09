@@ -8,12 +8,14 @@ import { fetchPlaylist } from 'store/actions/playlist'
 import H2 from 'components/shared/H2/H2'
 import Cover from 'components/shared/Cover/Cover'
 import TracksList from 'components/shared/TracksList/TracksList'
+import Spinner from 'components/shared/Spinner/Spinner'
 
 const Playlist = ({
   title,
   description,
   tracks,
   images,
+  isLoading,
   followers,
   owner,
   match,
@@ -24,51 +26,65 @@ const Playlist = ({
   }, [match.url])
   return (
     <>
-      <HeaderWrapper>
-        {
-          images &&
-            <Cover
-              img={images[0].url}
-              hoverEffect={false}
-              size={200}
-            />
-        }
-        <InfoWrapper>
-          <Label>
-            PLAYLIST
-          </Label>
-          <H2>
-            {title}
-          </H2>
-          {
-            description &&
-              <Description>
-                {description}
-              </Description>
-          }
-          <Description>
-            Created by <Owner>{owner}</Owner>
-          </Description>
-          <Stats>
-            <Label>
-              {tracks.length} songs
-            </Label>
-            <Label>
-              Followers: {followers}
-            </Label>
-          </Stats>
-        </InfoWrapper>
-      </HeaderWrapper>
-      <TracksList items={tracks} />
+      {
+        isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <HeaderWrapper>
+              {
+                images &&
+                  <Cover
+                    img={images[0].url}
+                    hoverEffect={false}
+                    size={200}
+                  />
+              }
+              <InfoWrapper>
+                <Label>
+                  PLAYLIST
+                </Label>
+                <H2>
+                  {title}
+                </H2>
+                {
+                  description &&
+                    <Description>
+                      {description}
+                    </Description>
+                }
+                <Description>
+                  Created by <Owner>{owner}</Owner>
+                </Description>
+                <Stats>
+                  <Label>
+                    {tracks.length} songs
+                  </Label>
+                  <Label>
+                    Followers: {followers}
+                  </Label>
+                </Stats>
+              </InfoWrapper>
+            </HeaderWrapper>
+            <TracksList items={tracks} />
+          </>
+        )
+      }
     </>
   )
 }
 
 const mapStateToProps = (state) => {
-  const { title, description, tracks, images, followers, owner } = state.playlist
+  const { title, description, tracks, images, followers, owner, pending } = state.playlist
 
   return {
-    title, description, tracks, images, followers, owner
+    title,
+    description,
+    tracks,
+    images,
+    followers,
+    owner,
+    isLoading: pending
   }
 }
 
@@ -81,6 +97,7 @@ Playlist.propTypes = {
   fetchPlaylist: PropTypes.func,
   followers: PropTypes.number,
   images: PropTypes.array,
+  isLoading: PropTypes.bool,
   owner: PropTypes.string,
   title: PropTypes.string,
   tracks: PropTypes.array,

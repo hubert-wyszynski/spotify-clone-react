@@ -8,12 +8,14 @@ import { fetchAlbum } from 'store/actions/album'
 import H2 from 'components/shared/H2/H2'
 import Cover from 'components/shared/Cover/Cover'
 import TracksList from 'components/shared/TracksList/TracksList'
+import Spinner from 'components/shared/Spinner/Spinner'
 
 const Album = ({
   albumType,
   artists,
   fetchAlbum,
   images,
+  isLoading,
   match,
   name,
   tracks
@@ -24,36 +26,44 @@ const Album = ({
 
   return (
     <>
-      <HeaderWrapper>
-        {
-          images &&
-            <Cover
-              img={images[0].url}
-              hoverEffect={false}
-              size={200}
-            />
-        }
-        <InfoWrapper>
-          <Label capitalize>
-            {albumType}
-          </Label>
-          <H2>
-            {name}
-          </H2>
-          {
-            artists &&
-              <Description>
-                By <Owner>{[...artists.map(artist => artist.name)].join(', ')}</Owner>
-              </Description>
-          }
-          <Stats>
-            <Label>
-              {tracks.length} songs
-            </Label>
-          </Stats>
-        </InfoWrapper>
-      </HeaderWrapper>
-      <TracksList items={tracks} />
+      {
+        isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <HeaderWrapper>
+              {
+                images &&
+                  <Cover
+                    img={images[0].url}
+                    hoverEffect={false}
+                    size={200}
+                  />
+              }
+              <InfoWrapper>
+                <Label capitalize>
+                  {albumType}
+                </Label>
+                <H2>
+                  {name}
+                </H2>
+                {
+                  artists &&
+                    <Description>
+                      By <Owner>{[...artists.map(artist => artist.name)].join(', ')}</Owner>
+                    </Description>
+                }
+                <Stats>
+                  <Label>
+                    {tracks.length} songs
+                  </Label>
+                </Stats>
+              </InfoWrapper>
+            </HeaderWrapper>
+            <TracksList items={tracks} />
+          </>
+        )
+      }
     </>
   )
 }
@@ -63,10 +73,15 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => {
-  const { albumType, artists, images, name, tracks } = state.album
+  const { albumType, artists, images, name, tracks, pending } = state.album
 
   return {
-    albumType, artists, images, name, tracks
+    albumType,
+    artists,
+    images,
+    name,
+    tracks,
+    isLoading: pending
   }
 }
 
@@ -75,6 +90,7 @@ Album.propTypes = {
   artists: PropTypes.array,
   fetchAlbum: PropTypes.func,
   images: PropTypes.array,
+  isLoading: PropTypes.bool,
   name: PropTypes.string,
   match: PropTypes.object,
   tracks: PropTypes.array

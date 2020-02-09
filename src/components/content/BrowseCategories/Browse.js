@@ -8,9 +8,11 @@ import H1 from 'components/shared/H1/H1'
 import H3 from 'components/shared/H3/H3'
 import Grid from 'components/shared/Grid/Grid'
 import GridItem from 'components/shared/GridItem/GridItem'
+import Spinner from 'components/shared/Spinner/Spinner'
 
 const Browse = ({
   fetchCategories,
+  isLoading,
   items,
   match
 }) => {
@@ -20,23 +22,31 @@ const Browse = ({
 
   return (
     <>
-      <H1>Browse</H1>
-      <H3>Genres & moods</H3>
-      <Grid>
-        {
-          items &&
-          items.map(item => (
-            <GridItem
-              cover={item.icons[0].url}
-              item={item}
-              key={item.id}
-              linkTo={`browse/${item.id}`}
-              titleCentered
-              title={item.name}
-            />
-          ))
-        }
-      </Grid>
+      {
+        isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <H1>Browse</H1>
+            <H3>Genres & moods</H3>
+            <Grid>
+              {
+                items &&
+                items.map(item => (
+                  <GridItem
+                    cover={item.icons[0].url}
+                    item={item}
+                    key={item.id}
+                    linkTo={`browse/${item.id}`}
+                    titleCentered
+                    title={item.name}
+                  />
+                ))
+              }
+            </Grid>
+          </>
+        )
+      }
     </>
   )
 }
@@ -48,13 +58,15 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) => {
   const { categories } = state
   return {
-    items: categories.items
+    items: categories.items,
+    isLoading: categories.pending
   }
 }
 
 Browse.propTypes = {
   fetchCategories: PropTypes.func,
   items: PropTypes.array,
+  isLoading: PropTypes.bool,
   match: PropTypes.object
 }
 

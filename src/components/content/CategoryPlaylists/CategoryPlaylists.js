@@ -7,10 +7,12 @@ import { fetchCategoryPlaylists } from 'store/actions/categories'
 import H1 from 'components/shared/H1/H1'
 import Grid from 'components/shared/Grid/Grid'
 import GridItem from 'components/shared/GridItem/GridItem'
+import Spinner from 'components/shared/Spinner/Spinner'
 
 const CategoryPlaylists = ({
   fetchCategoryPlaylists,
   items,
+  isLoading,
   match
 }) => {
   useEffect(() => {
@@ -19,22 +21,30 @@ const CategoryPlaylists = ({
 
   return (
     <>
-      <H1>Playlist name</H1>
-      <Grid>
-        {
-          items &&
-          items.map(item => (
-            <GridItem
-              cover={item.images[0].url}
-              item={item}
-              key={item.id}
-              linkTo={`/playlist/${item.id}`}
-              title={item.name}
-              subtitle={item.description}
-            />
-          ))
-        }
-      </Grid>
+      {
+        isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <H1>Playlists:</H1>
+            <Grid>
+              {
+                items &&
+                items.map(item => (
+                  <GridItem
+                    cover={item.images[0].url}
+                    item={item}
+                    key={item.id}
+                    linkTo={`/playlist/${item.id}`}
+                    title={item.name}
+                    subtitle={item.description}
+                  />
+                ))
+              }
+            </Grid>
+          </>
+        )
+      }
     </>
   )
 }
@@ -43,13 +53,19 @@ const mapDispatchToProps = {
   fetchCategoryPlaylists
 }
 
-const mapStateToProps = (state) => ({
-  items: state.category.items
-})
+const mapStateToProps = (state) => {
+  const { category } = state
+
+  return {
+    items: category.items,
+    isLoading: category.pending
+  }
+}
 
 CategoryPlaylists.propTypes = {
   fetchCategoryPlaylists: PropTypes.func,
   items: PropTypes.array,
+  isLoading: PropTypes.bool,
   match: PropTypes.object
 }
 
