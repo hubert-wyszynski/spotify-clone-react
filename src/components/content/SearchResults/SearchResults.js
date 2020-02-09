@@ -24,54 +24,72 @@ const SearchResults = ({
       {
         data &&
           <ResultsWrapper>
-            <H3>Tracks</H3>
-            <Grid spaced>
-              {
-                data.tracks.items.map(item => (
-                  <GridItem
-                    spaced
-                    cover={item.album.images[0].url}
-                    item={item}
-                    key={item.id}
-                    linkTo={`album/${item.album.id}`}
-                    title={item.name}
-                    subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
-                  />
-                ))
-              }
-            </Grid>
+            {
+              data.albums.total + data.tracks.total + data.playlists.total === 0 &&
+                <H3>No results, try again :(</H3>
+            }
+            {
+              data.tracks.items.length > 0 &&
+                <>
+                  <H3>Tracks</H3>
+                  <Grid spaced>
+                    {
+                      data.tracks.items.map(item => (
+                        <GridItem
+                          spaced
+                          cover={item.album.images[0].url}
+                          item={item}
+                          key={item.id}
+                          linkTo={`album/${item.album.id}`}
+                          title={item.name}
+                          subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
+                        />
+                      ))
+                    }
+                  </Grid>
+                </>
+            }
 
-            <H3>Albums</H3>
-            <Grid>
-              {
-                data.albums.items.map(item => (
-                  <GridItem
-                    cover={item.images[0].url}
-                    item={item}
-                    key={item.id}
-                    linkTo={`album/${item.id}`}
-                    title={item.name}
-                    subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
-                  />
-                ))
-              }
-            </Grid>
+            {
+              data.albums.items.length > 0 &&
+                <>
+                  <H3>Albums</H3>
+                  <Grid>
+                    {
+                      data.albums.items.map(item => (
+                        <GridItem
+                          cover={item.images[0].url}
+                          item={item}
+                          key={item.id}
+                          linkTo={`album/${item.id}`}
+                          title={item.name}
+                          subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
+                        />
+                      ))
+                    }
+                  </Grid>
+                </>
+            }
 
-            <H3>Playlists</H3>
-            <Grid>
-              {
-                data.playlists.items.map(item => (
-                  <GridItem
-                    cover={item.images.length ? item.images[0].url : null}
-                    item={item}
-                    key={item.id}
-                    linkTo={`playlist/${item.id}`}
-                    title={item.name}
-                  />
-                ))
-              }
-            </Grid>
-
+            {
+              data.playlists.items.length > 0 &&
+                <>
+                  <H3>Playlists</H3>
+                  <Grid>
+                    {
+                      data.playlists.items.map(item => (
+                        <GridItem
+                          cover={item.images.length ? item.images[0].url : null}
+                          item={item}
+                          key={item.id}
+                          linkTo={`playlist/${item.id}`}
+                          title={item.name}
+                        />
+                      ))
+                    }
+                  </Grid>
+                </>
+            }
           </ResultsWrapper>
       }
     </>
