@@ -7,7 +7,7 @@ import BottomBar from 'components/BottomBar/BottomBar'
 import SideBar from 'components/SideBar/SideBar'
 import MainContent from 'components/MainContent/MainContent'
 
-const AppWrapper = () => (
+const App = () => (
   <Desktop>
     <AppWindow>
       <TopBar />
@@ -20,11 +20,11 @@ const AppWrapper = () => (
   </Desktop>
 )
 
-export default AppWrapper
+export default App
 
 const Desktop = styled.div`
   align-items: center;
-  background-color: #193a5d;
+  background-color: #2a3a5f;
   display: flex;
   height: 100vh;
   justify-content: center;
