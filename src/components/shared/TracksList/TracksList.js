@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
 
-import ListItem from 'components/List/ListItem'
+import TracksListItem from 'components/shared/TracksList/TracksListItem'
 
-const List = ({ items }) => (
+const TracksList = ({ items }) => (
   <>
     <Header>
       <HeaderElement width={50}>#</HeaderElement>
       <HeaderElement width={330}>Title</HeaderElement>
       <HeaderElement>Artist</HeaderElement>
     </Header>
-    <ListWrapper>
+    <ItemsWrapper>
       {
         items
           .filter(item => item.track !== null && item.preview !== null)
@@ -20,7 +20,7 @@ const List = ({ items }) => (
             const i = item.track ? item.track : item
 
             return (
-              <ListItem
+              <TracksListItem
                 item={i}
                 index={index}
                 key={i.id}
@@ -28,7 +28,7 @@ const List = ({ items }) => (
             )
           })
       }
-    </ListWrapper>
+    </ItemsWrapper>
   </>
 )
 
@@ -37,7 +37,8 @@ const Header = styled.div`
   border-bottom: 1px solid #676767;
   display: flex;
   height: 40px;
-  padding: 0 0 0 14px;
+  padding: 20px 0 20px 14px;
+  margin-top: 8px;
 `
 
 const HeaderElement = styled.div`
@@ -46,16 +47,16 @@ const HeaderElement = styled.div`
   width: ${({ width }) => width ? `${width}px` : 'auto'};
 `
 
-const ListWrapper = styled.ul`
+const ItemsWrapper = styled.ul`
   list-style: none;
   padding: 0;
   overflow: scroll;
-  height: calc(100% - 100px);
   margin: 0;
+  padding-bottom: 16px;
 `
 
-List.propTypes = {
+TracksList.propTypes = {
   items: PropTypes.array
 }
 
-export default List
+export default TracksList

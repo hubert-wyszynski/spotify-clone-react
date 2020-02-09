@@ -19,7 +19,7 @@ const Search = ({
 
     delayTimer = setDelayTimer(
       setTimeout(function () {
-        history.push(`/search?q=${inputVal}`)
+        if (inputVal !== '') history.push(`/search?q=${inputVal}`)
       }, 1000)
     )
   }

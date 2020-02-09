@@ -5,8 +5,9 @@ import styled from 'styled-components'
 
 import { fetchPlaylist } from 'store/actions/playlist'
 
-import Cover from 'components/Cover/Cover'
-import List from 'components/List/List'
+import H2 from 'components/shared/H2/H2'
+import Cover from 'components/shared/Cover/Cover'
+import TracksList from 'components/shared/TracksList/TracksList'
 
 const Playlist = ({
   title,
@@ -26,15 +27,19 @@ const Playlist = ({
       <HeaderWrapper>
         {
           images &&
-            <Cover size={200} img={images[0].url} />
+            <Cover
+              img={images[0].url}
+              hoverEffect={false}
+              size={200}
+            />
         }
         <InfoWrapper>
           <Label>
             PLAYLIST
           </Label>
-          <Title>
+          <H2>
             {title}
-          </Title>
+          </H2>
           {
             description &&
               <Description>
@@ -54,7 +59,7 @@ const Playlist = ({
           </Stats>
         </InfoWrapper>
       </HeaderWrapper>
-      <List items={tracks} />
+      <TracksList items={tracks} />
     </>
   )
 }
@@ -97,13 +102,6 @@ const Label = styled.p`
   font-size: 1.2rem;
   font-weight: 200;
   color: #fff;
-`
-
-const Title = styled.h3`
-  color: #fff;
-  font-size: 3.0rem;
-  margin: 12px 0;
-  font-weight: 700;
 `
 
 const Description = styled.p`

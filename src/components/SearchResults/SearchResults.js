@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import { searchForItems } from 'store/actions/search'
 import styled from 'styled-components'
 
-import GridItem from 'components/Grid/GridItem'
+import Grid from 'components/shared/Grid/Grid'
+import GridItem from 'components/shared/GridItem/GridItem'
+import H1 from 'components/shared/H1/H1'
+import H3 from 'components/shared/H3/H3'
 
 const SearchResults = ({
   data,
@@ -17,27 +20,12 @@ const SearchResults = ({
 
   return (
     <>
-      <h1>Search results</h1>
+      <H1>Search results</H1>
       {
         data &&
-          <>
-            <h2>Albums</h2>
-            <GridItemsWrapper>
-              {
-                data.albums.items.map(item => (
-                  <GridItem
-                    cover={item.images[0].url}
-                    item={item}
-                    key={item.id}
-                    linkTo={`album/${item.id}`}
-                    title={item.name}
-                  />
-                ))
-              }
-            </GridItemsWrapper>
-
-            <h2>Tracks</h2>
-            <GridItemsWrapper>
+          <ResultsWrapper>
+            <H3>Tracks</H3>
+            <Grid>
               {
                 data.tracks.items.map(item => (
                   <GridItem
@@ -46,13 +34,30 @@ const SearchResults = ({
                     key={item.id}
                     linkTo={`album/${item.album.id}`}
                     title={item.name}
+                    subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
                   />
                 ))
               }
-            </GridItemsWrapper>
+            </Grid>
 
-            <h2>Playlists</h2>
-            <GridItemsWrapper>
+            <H3>Albums</H3>
+            <Grid>
+              {
+                data.albums.items.map(item => (
+                  <GridItem
+                    cover={item.images[0].url}
+                    item={item}
+                    key={item.id}
+                    linkTo={`album/${item.id}`}
+                    title={item.name}
+                    subtitle={[...item.artists.map(artist => artist.name)].join(', ')}
+                  />
+                ))
+              }
+            </Grid>
+
+            <H3>Playlists</H3>
+            <Grid>
               {
                 data.playlists.items.map(item => (
                   <GridItem
@@ -64,18 +69,15 @@ const SearchResults = ({
                   />
                 ))
               }
-            </GridItemsWrapper>
+            </Grid>
 
-          </>
+          </ResultsWrapper>
       }
     </>
   )
 }
 
-const GridItemsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 18px;
+const ResultsWrapper = styled.div`
   overflow: scroll;
 `
 

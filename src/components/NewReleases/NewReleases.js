@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
-import GridItem from 'components/Grid/GridItem'
+import H1 from 'components/shared/H1/H1'
+import H3 from 'components/shared/H3/H3'
+import Grid from 'components/shared/Grid/Grid'
+import GridItem from 'components/shared/GridItem/GridItem'
 
 import { fetchNewReleases } from 'store/actions/releases'
 
@@ -18,9 +20,9 @@ const NewReleases = ({
 
   return (
     <>
-      <Header>New releases</Header>
-      <Subheader>The best new releases</Subheader>
-      <ItemsWrapper>
+      <H1>New releases</H1>
+      <H3>The best new releases</H3>
+      <Grid>
         {
           items &&
           items.map(item => (
@@ -34,33 +36,10 @@ const NewReleases = ({
             />
           ))
         }
-      </ItemsWrapper>
+      </Grid>
     </>
   )
 }
-
-const ItemsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 18px;
-  overflow: scroll;
-  height: calc(100% - 122px);
-`
-
-const Header = styled.h1`
-  color: #fff;
-  margin: 0 0 12px;
-  font-size: 3.8rem;
-`
-
-const Subheader = styled.h2`
-  color: #fff;
-  margin: 0 1px 16px;
-  font-size: 1.4rem;
-  font-weight: 400;
-  border-bottom: 1px solid #717171;
-  padding-bottom: 12px;
-`
 
 const mapDispatchToProps = {
   fetchNewReleases

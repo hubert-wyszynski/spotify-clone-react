@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
-import Login from 'views/primary/Login/Login'
-import AppWrapper from 'views/primary/App/App'
+import Login from 'views/Login/Login'
+import AppWrapper from 'views/App/App'
 import GlobalStyle from 'theme/GlobalStyle'
 
 import { setToken } from 'store/actions/token'

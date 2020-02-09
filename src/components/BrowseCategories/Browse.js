@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import { fetchCategories } from 'store/actions/categories'
 
-import GridItem from 'components/Grid/GridItem'
+import H1 from 'components/shared/H1/H1'
+import H3 from 'components/shared/H3/H3'
+import Grid from 'components/shared/Grid/Grid'
+import GridItem from 'components/shared/GridItem/GridItem'
 
 const Browse = ({
   fetchCategories,
@@ -18,9 +20,9 @@ const Browse = ({
 
   return (
     <>
-      <Header>Browse</Header>
-      <Subheader>Genres & moods</Subheader>
-      <ItemsWrapper>
+      <H1>Browse</H1>
+      <H3>Genres & moods</H3>
+      <Grid>
         {
           items &&
           items.map(item => (
@@ -34,33 +36,10 @@ const Browse = ({
             />
           ))
         }
-      </ItemsWrapper>
+      </Grid>
     </>
   )
 }
-
-const ItemsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 18px;
-  overflow: scroll;
-  height: calc(100% - 122px);
-`
-
-const Header = styled.h1`
-  color: #fff;
-  margin: 0 0 12px;
-  font-size: 3.8rem;
-`
-
-const Subheader = styled.h2`
-  color: #fff;
-  margin: 0 1px 16px;
-  font-size: 1.4rem;
-  font-weight: 400;
-  border-bottom: 1px solid #717171;
-  padding-bottom: 12px;
-`
 
 const mapDispatchToProps = {
   fetchCategories

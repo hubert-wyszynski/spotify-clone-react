@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import Cover from 'components/Cover/Cover'
+import Cover from 'components/shared/Cover/Cover'
 
-const GridItem = ({
+const ItemTile = ({
   cover,
   item,
   linkTo,
@@ -22,7 +22,7 @@ const GridItem = ({
         <Title
           titleCentered={titleCentered}
         >
-          {title}
+          {title.length < 30 ? title : `${title.slice(0, 30)}...`}
         </Title>
         {
           subtitle &&
@@ -40,6 +40,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  margin-bottom: 18px;
 `
 
 const Subtitle = styled.h4`
@@ -72,8 +73,7 @@ const Title = styled.h3`
     }
   }}
 `
-
-GridItem.propTypes = {
+ItemTile.propTypes = {
   cover: PropTypes.string,
   item: PropTypes.object,
   linkTo: PropTypes.string,
@@ -82,4 +82,4 @@ GridItem.propTypes = {
   subtitle: PropTypes.string
 }
 
-export default GridItem
+export default ItemTile

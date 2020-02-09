@@ -5,16 +5,16 @@ import styled from 'styled-components'
 import TopBar from 'components/TopBar/TopBar'
 import BottomBar from 'components/BottomBar/BottomBar'
 import SideBar from 'components/SideBar/SideBar'
-import MainContent from 'components/MainContent/MainContent'
+import ContentWrapper from 'components/ContentWrapper/ContentWrapper'
 
 const App = () => (
   <Desktop>
     <AppWindow>
       <TopBar />
-      <ContentWrapper>
+      <Content>
         <SideBar />
-        <MainContent />
-      </ContentWrapper>
+        <ContentWrapper />
+      </Content>
       <BottomBar />
     </AppWindow>
   </Desktop>
@@ -31,7 +31,7 @@ const Desktop = styled.div`
   padding: 0 20px;
 `
 
-const ContentWrapper = styled.div`
+const Content = styled.div`
   display: flex;
   height: calc(100% - 72px);
 `

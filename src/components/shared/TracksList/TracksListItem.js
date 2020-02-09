@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import { playTrack } from 'store/actions/player'
 
-const ListItem = ({
+const TracksListItem = ({
   item,
   index,
   playTrack
@@ -74,10 +74,10 @@ const mapDispatchToProps = {
   playTrack
 }
 
-ListItem.propTypes = {
+TracksListItem.propTypes = {
   index: PropTypes.number,
   item: PropTypes.object,
   playTrack: PropTypes.func
 }
 
-export default connect(null, mapDispatchToProps)(ListItem)
+export default connect(null, mapDispatchToProps)(TracksListItem)

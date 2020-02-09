@@ -5,8 +5,9 @@ import styled, { css } from 'styled-components'
 
 import { fetchAlbum } from 'store/actions/album'
 
-import Cover from 'components/Cover/Cover'
-import List from 'components/List/List'
+import H2 from 'components/shared/H2/H2'
+import Cover from 'components/shared/Cover/Cover'
+import TracksList from 'components/shared/TracksList/TracksList'
 
 const Album = ({
   albumType,
@@ -26,15 +27,19 @@ const Album = ({
       <HeaderWrapper>
         {
           images &&
-            <Cover size={200} img={images[0].url} />
+            <Cover
+              img={images[0].url}
+              hoverEffect={false}
+              size={200}
+            />
         }
         <InfoWrapper>
           <Label capitalize>
             {albumType}
           </Label>
-          <Title>
+          <H2>
             {name}
-          </Title>
+          </H2>
           {
             artists &&
               <Description>
@@ -48,7 +53,7 @@ const Album = ({
           </Stats>
         </InfoWrapper>
       </HeaderWrapper>
-      <List items={tracks} />
+      <TracksList items={tracks} />
     </>
   )
 }
@@ -93,16 +98,9 @@ const Label = styled.p`
   
   ${({ capitalize }) => (
     capitalize && css`
-      text-transform: capitalize
+      text-transform: capitalize;
     `
   )}
-`
-
-const Title = styled.h3`
-  color: #fff;
-  font-size: 3.0rem;
-  margin: 12px 0;
-  font-weight: 700;
 `
 
 const Description = styled.p`
