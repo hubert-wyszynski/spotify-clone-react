@@ -5,35 +5,46 @@ import { Link } from 'react-router-dom'
 
 import Cover from 'components/shared/Cover/Cover'
 
-const ItemTile = ({
+const GridItem = ({
   cover,
-  item,
   linkTo,
   title,
   titleCentered,
+  spaced,
   subtitle
 }) => {
   return (
     <Link to={linkTo}>
-      <Wrapper>
+      <Wrapper
+        spaced={spaced}
+      >
         <Cover
           img={cover}
+          size={spaced && 94}
         />
-        <Title
-          titleCentered={titleCentered}
+        <InfoWrapper
+          spaced={spaced}
         >
-          {title.length < 30 ? title : `${title.slice(0, 30)}...`}
-        </Title>
-        {
-          subtitle &&
-            <Subtitle>
-              {subtitle.length < 45 ? subtitle : `${subtitle.slice(0, 45)}...`}
-            </Subtitle>
-        }
+          <Title
+            titleCentered={titleCentered}
+          >
+            {title.length < 30 ? title : `${title.slice(0, 30)}...`}
+          </Title>
+          {
+            subtitle &&
+              <Subtitle>
+                {subtitle.length < 45 ? subtitle : `${subtitle.slice(0, 45)}...`}
+              </Subtitle>
+          }
+        </InfoWrapper>
       </Wrapper>
     </Link>
   )
 }
+
+const InfoWrapper = styled.div`
+  padding-left: ${({ spaced }) => spaced ? '12px' : 0}
+`
 
 const Wrapper = styled.div`
   cursor: pointer;
@@ -41,6 +52,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   position: relative;
   margin-bottom: 18px;
+
+  ${({ spaced }) => (
+    spaced && css`
+      flex-direction: row;
+    `
+  )}
 `
 
 const Subtitle = styled.h4`
@@ -73,13 +90,13 @@ const Title = styled.h3`
     }
   }}
 `
-ItemTile.propTypes = {
+GridItem.propTypes = {
   cover: PropTypes.string,
-  item: PropTypes.object,
   linkTo: PropTypes.string,
   title: PropTypes.string,
   titleCentered: PropTypes.bool,
+  spaced: PropTypes.bool,
   subtitle: PropTypes.string
 }
 
-export default ItemTile
+export default GridItem

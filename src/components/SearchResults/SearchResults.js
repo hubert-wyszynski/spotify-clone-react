@@ -25,10 +25,11 @@ const SearchResults = ({
         data &&
           <ResultsWrapper>
             <H3>Tracks</H3>
-            <Grid>
+            <Grid spaced>
               {
                 data.tracks.items.map(item => (
                   <GridItem
+                    spaced
                     cover={item.album.images[0].url}
                     item={item}
                     key={item.id}

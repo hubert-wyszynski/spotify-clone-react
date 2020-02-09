@@ -22,11 +22,12 @@ const NewReleases = ({
     <>
       <H1>New releases</H1>
       <H3>The best new releases</H3>
-      <Grid>
+      <Grid spaced>
         {
           items &&
           items.map(item => (
             <GridItem
+              spaced
               cover={item.images[0].url}
               item={item}
               key={item.id}

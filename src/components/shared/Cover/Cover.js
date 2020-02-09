@@ -26,7 +26,9 @@ const Cover = ({
       />
       {
         !isImageLoaded &&
-          <SpinnerWrapper>
+          <SpinnerWrapper
+            size={size}
+          >
             <Spinner
               text={false}
             />
@@ -69,6 +71,14 @@ const SpinnerWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+
+  ${({ size }) => (
+    size && css`
+      width: ${size}px;
+      height: ${size}px;
+      padding-bottom: 0;
+    `
+  )}
 `
 
 Cover.propTypes = {
