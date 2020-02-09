@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { Switch, Route } from 'react-router-dom'
 
-import Album from 'components/Album/Album'
-import Browse from 'components/BrowseCategories/Browse'
-import CategoryPlaylists from 'components/CategoryPlaylists/CategoryPlaylists'
-import NewReleases from 'components/NewReleases/NewReleases'
-import Playlist from 'components/Playlist/Playlist'
-import SearchResults from 'components/SearchResults/SearchResults'
+import Album from 'components/content/Album/Album'
+import Browse from 'components/content/BrowseCategories/Browse'
+import CategoryPlaylists from 'components/content/CategoryPlaylists/CategoryPlaylists'
+import NewReleases from 'components/content/NewReleases/NewReleases'
+import Playlist from 'components/content/Playlist/Playlist'
+import SearchResults from 'components/content/SearchResults/SearchResults'
 
 const ContentWrapper = () => (
   <Wrapper>

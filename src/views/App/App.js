@@ -2,10 +2,10 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import TopBar from 'components/TopBar/TopBar'
-import BottomBar from 'components/BottomBar/BottomBar'
-import SideBar from 'components/SideBar/SideBar'
-import ContentWrapper from 'components/ContentWrapper/ContentWrapper'
+import TopBar from 'components/UI/TopBar/TopBar'
+import BottomBar from 'components/UI/BottomBar/BottomBar'
+import SideBar from 'components/UI/SideBar/SideBar'
+import ContentWrapper from 'components/UI/ContentWrapper/ContentWrapper'
 
 const App = () => (
   <Desktop>

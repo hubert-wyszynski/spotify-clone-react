@@ -16,7 +16,7 @@ export const fetchNewReleases = () => dispatch => {
   return axios
     .get(
       'browse/new-releases',
-      { params: { limit: 50, country: 'PL' } }
+      { params: { limit: 50, country: 'US' } }
     )
     .then(payload => {
       dispatch({ type: FETCH_NEW_RELEASES_SUCCESS, payload })

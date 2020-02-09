@@ -12,7 +12,6 @@ const initialState = {
 const playlist = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PLAYLIST_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         title: action.payload.data.name,
