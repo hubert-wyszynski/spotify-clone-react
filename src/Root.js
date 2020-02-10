@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { createGlobalStyle } from 'styled-components'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import Login from 'views/Login/Login'
-import AppWrapper from 'views/AppWrapper/AppWrapper'
+import AppWrapper from 'views/App/App'
+import GlobalStyle from 'theme/GlobalStyle'
 
-import { setToken } from 'actions/token'
+import { setToken } from 'store/actions/token'
 
 const hash = window.location.hash
   .substring(1)
@@ -40,7 +40,7 @@ class Root extends React.Component {
           </Switch>
           {
             this.props.token ? (
-              <Redirect to='/' />
+              <Redirect to='/browse' />
             ) : (
               <Redirect to='/login' />
             )
@@ -50,31 +50,6 @@ class Root extends React.Component {
     )
   }
 }
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600,700&display=swap');
-
-  @import '../node_modules/font-awesome/scss/font-awesome.scss';
-
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
-  html {
-    font-size: 62.5%;
-  }
-
-  body {
-    font-size: 1.6rem;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-  }
-
-  i {
-    font-family: 'FontAwesome' !important;
-    font-style: normal;
-  }
-`
 
 const mapStateToProps = ({ token }) => {
   return token
