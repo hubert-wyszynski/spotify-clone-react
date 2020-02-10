@@ -4,10 +4,11 @@ import PropTypes from 'prop-types'
 
 import { fetchCategoryPlaylists } from 'store/actions/categories'
 
+import LoaderProvider from 'providers/LoaderProvider'
+
 import H1 from 'components/shared/H1/H1'
 import Grid from 'components/shared/Grid/Grid'
 import GridItem from 'components/shared/GridItem/GridItem'
-import Spinner from 'components/shared/Spinner/Spinner'
 
 const CategoryPlaylists = ({
   fetchCategoryPlaylists,
@@ -20,32 +21,24 @@ const CategoryPlaylists = ({
   }, [match.url])
 
   return (
-    <>
-      {
-        isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <H1>Playlists:</H1>
-            <Grid>
-              {
-                items &&
-                items.map(item => (
-                  <GridItem
-                    cover={item.images[0].url}
-                    item={item}
-                    key={item.id}
-                    linkTo={`/playlist/${item.id}`}
-                    title={item.name}
-                    subtitle={item.description}
-                  />
-                ))
-              }
-            </Grid>
-          </>
-        )
-      }
-    </>
+    <LoaderProvider isLoading={isLoading}>
+      <H1>Playlists:</H1>
+      <Grid>
+        {
+          items &&
+          items.map(item => (
+            <GridItem
+              cover={item.images[0].url}
+              item={item}
+              key={item.id}
+              linkTo={`/playlist/${item.id}`}
+              title={item.name}
+              subtitle={item.description}
+            />
+          ))
+        }
+      </Grid>
+    </LoaderProvider>
   )
 }
 

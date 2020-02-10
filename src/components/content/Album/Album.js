@@ -5,10 +5,10 @@ import styled, { css } from 'styled-components'
 
 import { fetchAlbum } from 'store/actions/album'
 
+import LoaderProvider from 'providers/LoaderProvider'
 import H2 from 'components/shared/H2/H2'
 import Cover from 'components/shared/Cover/Cover'
 import TracksList from 'components/shared/TracksList/TracksList'
-import Spinner from 'components/shared/Spinner/Spinner'
 
 const Album = ({
   albumType,
@@ -25,46 +25,38 @@ const Album = ({
   }, [match.url])
 
   return (
-    <>
-      {
-        isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <HeaderWrapper>
-              {
-                images &&
-                  <Cover
-                    img={images[0].url}
-                    hoverEffect={false}
-                    size={200}
-                  />
-              }
-              <InfoWrapper>
-                <Label capitalize>
-                  {albumType}
-                </Label>
-                <H2>
-                  {name}
-                </H2>
-                {
-                  artists &&
-                    <Description>
-                      By <Owner>{[...artists.map(artist => artist.name)].join(', ')}</Owner>
-                    </Description>
-                }
-                <Stats>
-                  <Label>
-                    {tracks.length} songs
-                  </Label>
-                </Stats>
-              </InfoWrapper>
-            </HeaderWrapper>
-            <TracksList items={tracks} />
-          </>
-        )
-      }
-    </>
+    <LoaderProvider isLoading={isLoading}>
+      <HeaderWrapper>
+        {
+          images &&
+            <Cover
+              img={images[0].url}
+              hoverEffect={false}
+              size={200}
+            />
+        }
+        <InfoWrapper>
+          <Label capitalize>
+            {albumType}
+          </Label>
+          <H2>
+            {name}
+          </H2>
+          {
+            artists &&
+              <Description>
+                By <Owner>{[...artists.map(artist => artist.name)].join(', ')}</Owner>
+              </Description>
+          }
+          <Stats>
+            <Label>
+              {tracks.length} songs
+            </Label>
+          </Stats>
+        </InfoWrapper>
+      </HeaderWrapper>
+      <TracksList items={tracks} />
+    </LoaderProvider>
   )
 }
 

@@ -4,11 +4,12 @@ import PropTypes from 'prop-types'
 
 import { fetchCategories } from 'store/actions/categories'
 
+import LoaderProvider from 'providers/LoaderProvider'
+
 import H1 from 'components/shared/H1/H1'
 import H3 from 'components/shared/H3/H3'
 import Grid from 'components/shared/Grid/Grid'
 import GridItem from 'components/shared/GridItem/GridItem'
-import Spinner from 'components/shared/Spinner/Spinner'
 
 const Browse = ({
   fetchCategories,
@@ -21,33 +22,25 @@ const Browse = ({
   }, [match.url])
 
   return (
-    <>
-      {
-        isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <H1>Browse</H1>
-            <H3>Genres & moods</H3>
-            <Grid>
-              {
-                items &&
-                items.map(item => (
-                  <GridItem
-                    cover={item.icons[0].url}
-                    item={item}
-                    key={item.id}
-                    linkTo={`browse/${item.id}`}
-                    titleCentered
-                    title={item.name}
-                  />
-                ))
-              }
-            </Grid>
-          </>
-        )
-      }
-    </>
+    <LoaderProvider isLoading={isLoading}>
+      <H1>Browse</H1>
+      <H3>Genres & moods</H3>
+      <Grid>
+        {
+          items &&
+          items.map(item => (
+            <GridItem
+              cover={item.icons[0].url}
+              item={item}
+              key={item.id}
+              linkTo={`browse/${item.id}`}
+              titleCentered
+              title={item.name}
+            />
+          ))
+        }
+      </Grid>
+    </LoaderProvider>
   )
 }
 

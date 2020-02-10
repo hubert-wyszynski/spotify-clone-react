@@ -5,10 +5,11 @@ import styled from 'styled-components'
 
 import { fetchPlaylist } from 'store/actions/playlist'
 
+import LoaderProvider from 'providers/LoaderProvider'
+
 import H2 from 'components/shared/H2/H2'
 import Cover from 'components/shared/Cover/Cover'
 import TracksList from 'components/shared/TracksList/TracksList'
-import Spinner from 'components/shared/Spinner/Spinner'
 
 const Playlist = ({
   title,
@@ -25,52 +26,44 @@ const Playlist = ({
     fetchPlaylist(match.params.id)
   }, [match.url])
   return (
-    <>
-      {
-        isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <HeaderWrapper>
-              {
-                images &&
-                  <Cover
-                    img={images[0].url}
-                    hoverEffect={false}
-                    size={200}
-                  />
-              }
-              <InfoWrapper>
-                <Label>
-                  PLAYLIST
-                </Label>
-                <H2>
-                  {title}
-                </H2>
-                {
-                  description &&
-                    <Description>
-                      {description}
-                    </Description>
-                }
-                <Description>
-                  Created by <Owner>{owner}</Owner>
-                </Description>
-                <Stats>
-                  <Label>
-                    {tracks.length} songs
-                  </Label>
-                  <Label>
-                    Followers: {followers}
-                  </Label>
-                </Stats>
-              </InfoWrapper>
-            </HeaderWrapper>
-            <TracksList items={tracks} />
-          </>
-        )
-      }
-    </>
+    <LoaderProvider isLoading={isLoading}>
+      <HeaderWrapper>
+        {
+          images &&
+            <Cover
+              img={images[0].url}
+              hoverEffect={false}
+              size={200}
+            />
+        }
+        <InfoWrapper>
+          <Label>
+            PLAYLIST
+          </Label>
+          <H2>
+            {title}
+          </H2>
+          {
+            description &&
+              <Description>
+                {description}
+              </Description>
+          }
+          <Description>
+            Created by <Owner>{owner}</Owner>
+          </Description>
+          <Stats>
+            <Label>
+              {tracks.length} songs
+            </Label>
+            <Label>
+              Followers: {followers}
+            </Label>
+          </Stats>
+        </InfoWrapper>
+      </HeaderWrapper>
+      <TracksList items={tracks} />
+    </LoaderProvider>
   )
 }
 
