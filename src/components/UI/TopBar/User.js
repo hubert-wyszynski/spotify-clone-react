@@ -24,7 +24,10 @@ class User extends React.Component {
               <Name>
                 {user.data.display_name}
               </Name>
-              <Photo src={user.data.images[0].url} />
+              {
+                user.data.images.length &&
+                  <Photo src={user.data.images[0].url} />
+              }
             </>
         }
       </UserWrapper>
