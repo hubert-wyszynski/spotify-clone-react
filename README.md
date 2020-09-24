@@ -1,7 +1,7 @@
 # Spotify Clone React
 
 ## About
-This is simple clone of Spotify desktop app built with React. It uses [Spotify Web App](https://developer.spotify.com/documentation/web-api/). Some features are missing. Implemented ones include:
+This is simple clone of Spotify desktop app built with React. It uses [Spotify Web API](https://developer.spotify.com/documentation/web-api/). Some features are missing. Implemented ones include:
 * Browsing through categories
 * Browsing through categories playlists
 * Browsing thruogh new releases
